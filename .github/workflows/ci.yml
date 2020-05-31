@@ -9,4 +9,14 @@ jobs:
       - name: Checkout V
         uses: actions/checkout@v2
         with:
-          repository
+          repository: vlang/v
+      - name: Checkout gitly
+        uses: actions/checkout@v2
+        with:
+          path: gitly
+      - name: Install SQLite Dependencies
+        run: sudo apt install libsqlite3-dev
+      - name: Install Markdown
+        uses: actions/checkout@v2
+        with:
+          repository: vl

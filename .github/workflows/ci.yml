@@ -29,4 +29,18 @@ jobs:
       - name: Build V
         run: |
           make
+          sudo ./v symlink
+
+      - name: Compile gitly
+        run: |
+          cd gitly
+          v .
+
+      - name: Compile gitly with -autofree
+        run: |
+          cd gitly
+          v -autofree .
+
+      - name: Compile gitly with -prod
+        run: |
  

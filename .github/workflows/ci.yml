@@ -66,4 +66,13 @@ jobs:
           repository: vlang/v
       - name: Checkout gitly
         uses: actions/checkout@v2
-     
+        with:
+          path: gitly
+      - name: Install Markdown
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/markdown
+          path: vlib/markdown
+      - name: Install PCRE
+        uses: actions/checkout@v2
+        with

@@ -88,4 +88,13 @@ jobs:
           v .
       - name: Compile gitly with -autofree
         run: |
-          cd 
+          cd gitly
+          v -autofree .
+      - name: Compile gitly with -prod
+        run: |
+          cd gitly
+          v -prod .
+      - name: Compile CSS from SCSS files
+        uses: gha-utilities/sass-build@v0.4.9
+        with:
+          sour

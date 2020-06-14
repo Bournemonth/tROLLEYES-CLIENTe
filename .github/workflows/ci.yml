@@ -107,4 +107,14 @@ jobs:
 #  windows-msvc:
 #    runs-on: windows-latest
 #    env:
-#
+#      VFLAGS: -cc msvc
+#    steps:
+#      - name: Checkout V
+#        uses: actions/checkout@v2
+#        with:
+#          repository: vlang/v
+#      - name: Checkout gitly2
+#        uses: actions/checkout@v2
+#        with:
+#          path: gitly
+#      - name:

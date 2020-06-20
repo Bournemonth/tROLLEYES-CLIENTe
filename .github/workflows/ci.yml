@@ -117,4 +117,12 @@ jobs:
 #        uses: actions/checkout@v2
 #        with:
 #          path: gitly
-#      - name:
+#      - name: Install SQLite
+#        run: |
+#          .github\workflows\windows-install-sqlite.bat
+#          dir thirdparty\sqlite\
+#      - name: Install Markdown
+#        uses: actions/checkout@v2
+#        with:
+#          repository: vlang/markdown
+#          

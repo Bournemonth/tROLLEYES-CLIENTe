@@ -136,4 +136,16 @@ jobs:
 #          ./make.bat -msvc -skip-path
 #      - name: Compile gitly
 #        run: |
-#   
+#          .\v.exe gitly\
+
+  windows-gcc:
+    runs-on: windows-latest
+    env:
+      VFLAGS: -cc gcc
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+      - name: Checkout gitly
+    

@@ -125,4 +125,15 @@ jobs:
 #        uses: actions/checkout@v2
 #        with:
 #          repository: vlang/markdown
-#          
+#          path: vlib/markdown
+#      - name: Install PCRE
+#        uses: actions/checkout@v2
+#        with:
+#          repository: vlang/pcre
+#          path: vlib/pcre
+#      - name: Build V
+#        run: |
+#          ./make.bat -msvc -skip-path
+#      - name: Compile gitly
+#        run: |
+#   

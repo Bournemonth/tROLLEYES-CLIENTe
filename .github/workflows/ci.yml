@@ -157,4 +157,13 @@ jobs:
           dir thirdparty\sqlite\
       - name: Install Markdown
         uses: actions/checkout@v2
- 
+        with:
+          repository: vlang/markdown
+          path: vlib/markdown
+      - name: Install PCRE
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/pcre
+          path: vlib/pcre
+      - name: Build V
+  

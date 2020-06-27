@@ -166,4 +166,15 @@ jobs:
           repository: vlang/pcre
           path: vlib/pcre
       - name: Build V
-  
+        run: |
+          ./make.bat -gcc
+      - name: Compile gitly
+        run: .\v.exe gitly
+
+  ubuntu-tcc:
+    runs-on: ubuntu-latest
+    env:
+      VFLAGS: -cc tcc -cflags -bt10
+    steps:
+      - name: Checkout V
+        uses: actions/check

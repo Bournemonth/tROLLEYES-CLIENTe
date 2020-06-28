@@ -221,4 +221,4 @@ jobs:
       - name: Run gitly
         run: |
           cd gitly
-          v ru
+          v run tests/first_run.v

@@ -177,4 +177,13 @@ jobs:
       VFLAGS: -cc tcc -cflags -bt10
     steps:
       - name: Checkout V
-        uses: actions/check
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+      - name: Checkout gitly
+        uses: actions/checkout@v2
+        with:
+          path: gitly
+      - name: Install SQLite Dependencies
+        run: sudo apt install libsqlite3-dev
+      - name: Install Markdo

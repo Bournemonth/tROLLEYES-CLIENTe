@@ -197,3 +197,19 @@ jobs:
           repository: vlang/pcre
           path: vlib/pcre
       - name: Build V
+        run: |
+          echo $VFLAGS
+          make
+          sudo ./v symlink
+
+      - name: Compile gitly with -autofree
+        run: |
+          cd gitly
+          v -autofree .
+
+      - name: Compile gitly
+        run: |
+          cd gitly
+          v .
+
+      - name: C

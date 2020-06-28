@@ -186,4 +186,14 @@ jobs:
           path: gitly
       - name: Install SQLite Dependencies
         run: sudo apt install libsqlite3-dev
-      - name: Install Markdo
+      - name: Install Markdown
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/markdown
+          path: vlib/markdown
+      - name: Install PCRE
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/pcre
+          path: vlib/pcre
+      - name: Build V

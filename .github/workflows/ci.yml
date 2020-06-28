@@ -212,4 +212,13 @@ jobs:
           cd gitly
           v .
 
-      - name: C
+      - name: Compile CSS from SCSS files
+        uses: gha-utilities/sass-build@v0.4.9
+        with:
+          source: gitly/src/static/css/gitly.scss
+          destination: gitly/src/static/css/gitly.css
+
+      - name: Run gitly
+        run: |
+          cd gitly
+          v ru

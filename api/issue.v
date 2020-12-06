@@ -1,6 +1,6 @@
 module api
 
-pub struct ApiCommitCount {
+pub struct ApiIssueCount {
 	ApiResponse
 pub:
 	result int

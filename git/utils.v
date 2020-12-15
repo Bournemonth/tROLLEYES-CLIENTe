@@ -15,4 +15,13 @@ pub fn get_git_executable_path() ?string {
 	return which_output.trim(' \n')
 }
 
-pub fn
+pub fn get_repository_primary_branch(path string) string {
+	git_result := os.execute('git -C ${path} symbolic-ref HEAD')
+	git_exit_code := git_result.exit_code
+	git_output := git_result.output.trim(' \n')
+
+	if git_exit_code != 0 {
+		return ''
+	}
+
+	retur

@@ -41,4 +41,19 @@ fn init_c() Lang {
 			'if',
 			'static',
 			'while',
-			'
+			'#if',
+			'#else',
+			'#elif',
+			'#endif',
+			'#define',
+			'#undef',
+			'#warning',
+			'#error',
+			'#line',
+			'#pragma',
+			'#ifdef',
+			'#ifndef',
+			'#include',
+		]
+	}
+}

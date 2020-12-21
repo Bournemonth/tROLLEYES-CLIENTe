@@ -91,3 +91,11 @@ fn init_cpp() Lang {
 			'#warning',
 			'#error',
 			'#line',
+			'#pragma',
+			'#ifdef',
+			'#ifndef',
+			'#include',
+			'#endif',
+		]
+	}
+}

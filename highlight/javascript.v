@@ -37,4 +37,13 @@ fn init_js() Lang {
 			'of',
 			'try',
 			'as',
-			'le
+			'let',
+			'const',
+			'import',
+			'export',
+			'yield',
+			'false',
+			'true',
+		]
+	}
+}

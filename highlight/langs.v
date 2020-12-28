@@ -21,4 +21,16 @@ pub:
 	name           string
 }
 
-fn is_source(e
+fn is_source(ext string) bool {
+	extension_to_lang(ext) or { return false }
+	return true
+}
+
+pub fn extension_to_lang(ext string) ?Lang {
+	ending := ext.split('.').last()
+	for lang in highlight.langs {
+		if ending in lang.lang_extensions {
+			return lang
+		}
+	}
+	return e

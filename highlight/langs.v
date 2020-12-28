@@ -3,4 +3,22 @@
 module highlight
 
 const (
-	
+	lang_path = 'langs'
+)
+
+const (
+	langs = init_langs()
+)
+
+pub struct Lang {
+	keywords        []string
+	lang_extensions []string
+	string_start    []string
+pub:
+	line_comments  string
+	mline_comments []string
+	color          string
+	name           string
+}
+
+fn is_source(e

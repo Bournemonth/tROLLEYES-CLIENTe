@@ -38,4 +38,10 @@ fn init_py() Lang {
 			'pass',
 			'raise',
 			'return',
-			'try
+			'try',
+			'while',
+			'with',
+			'yield',
+		]
+	}
+}

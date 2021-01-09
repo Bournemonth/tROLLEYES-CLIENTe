@@ -52,4 +52,9 @@ fn init_ts() Lang {
 			'var',
 			'void',
 			'while',
-	
+			'yield',
+			'false',
+			'true',
+		]
+	}
+}

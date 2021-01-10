@@ -34,3 +34,7 @@ fn init_v() Lang {
 			'type',
 			'mut',
 			'true',
+			'false',
+		]
+	}
+}

@@ -33,4 +33,14 @@ pub fn (mut app App) handle_admin_edit_user(user_id string) vweb.Result {
 	}
 
 	clear_session := 'stop-session' in app.form
+	is_blocked := 'is-blocked' in app.form
+	is_admin := 'is-admin' in app.form
+
+	app.edit_user(user_id.int(), clear_session, is_blocked, is_admin)
+
+	return app.redirect('/admin')
+}
+
+['/admin/users']
+pub fn (mut app App) admin_users_default() vweb.Result {
 	

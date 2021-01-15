@@ -21,4 +21,16 @@ pub fn (mut app App) handle_admin_update_settings(oauth_client_id string, oauth_
 		return app.redirect_to_index()
 	}
 
-	app.update_gitly_settings(oaut
+	app.update_gitly_settings(oauth_client_id, oauth_client_secret)
+
+	return app.redirect('/admin')
+}
+
+['/admin/users/:user'; post]
+pub fn (mut app App) handle_admin_edit_user(user_id string) vweb.Result {
+	if !app.is_admin() {
+		return app.redirect_to_index()
+	}
+
+	clear_session := 'stop-session' in app.form
+	

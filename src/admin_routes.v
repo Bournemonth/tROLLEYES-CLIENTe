@@ -43,4 +43,14 @@ pub fn (mut app App) handle_admin_edit_user(user_id string) vweb.Result {
 
 ['/admin/users']
 pub fn (mut app App) admin_users_default() vweb.Result {
-	
+	return app.admin_users(0)
+}
+
+['/admin/users/:page']
+pub fn (mut app App) admin_users(page int) vweb.Result {
+	if !app.is_admin() {
+		return app.redirect_to_index()
+	}
+
+	user_count := app.get_all_registered_user_count()
+	offset :

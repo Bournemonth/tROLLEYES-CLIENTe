@@ -53,4 +53,8 @@ pub fn (mut app App) admin_users(page int) vweb.Result {
 	}
 
 	user_count := app.get_all_registered_user_count()
-	offset :
+	offset := admin_users_per_page * page
+	users := app.get_all_registered_users_as_page(offset)
+	page_count := calculate_pages(user_count, admin_users_per_page)
+	is_first_page := check_first_page(page)
+	is_last_page := check_last_page(user_count, offset, ad

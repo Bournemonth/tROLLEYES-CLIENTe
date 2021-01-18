@@ -57,4 +57,16 @@ pub fn (mut app App) admin_users(page int) vweb.Result {
 	users := app.get_all_registered_users_as_page(offset)
 	page_count := calculate_pages(user_count, admin_users_per_page)
 	is_first_page := check_first_page(page)
-	is_last_page := check_last_page(user_count, offset, ad
+	is_last_page := check_last_page(user_count, offset, admin_users_per_page)
+	prev_page, next_page := generate_prev_next_pages(page)
+
+	return $vweb.html()
+}
+
+['/admin/statistics']
+pub fn (mut app App) admin_statistics() vweb.Result {
+	if !app.is_admin() {
+		return app.redirect_to_index()
+	}
+
+	return $vweb.h

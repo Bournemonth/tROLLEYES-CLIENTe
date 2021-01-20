@@ -69,4 +69,5 @@ pub fn (mut app App) admin_statistics() vweb.Result {
 		return app.redirect_to_index()
 	}
 
-	return $vweb.h
+	return $vweb.html()
+}

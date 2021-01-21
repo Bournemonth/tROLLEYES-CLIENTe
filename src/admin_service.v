@@ -26,4 +26,12 @@ pub fn (mut app App) unblock_user(user_id int) {
 	app.set_user_block_status(user_id, false)
 }
 
-pub 
+pub fn (mut app App) add_admin(user_id int) {
+	app.set_user_admin_status(user_id, true)
+}
+
+pub fn (mut app App) remove_admin(user_id int) {
+	app.set_user_admin_status(user_id, false)
+}
+
+pub fn (mut app App) update_gitly_settings(oauth_client_id string, oauth_c

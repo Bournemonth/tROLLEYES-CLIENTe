@@ -34,4 +34,12 @@ pub fn (mut app App) remove_admin(user_id int) {
 	app.set_user_admin_status(user_id, false)
 }
 
-pub fn (mut app App) update_gitly_settings(oauth_client_id string, oauth_c
+pub fn (mut app App) update_gitly_settings(oauth_client_id string, oauth_client_secret string) {
+	app.update_settings(oauth_client_id, oauth_client_secret)
+
+	app.load_settings()
+}
+
+fn (mut app App) is_admin() bool {
+	return app.logged_in && app.user.is_admin
+}

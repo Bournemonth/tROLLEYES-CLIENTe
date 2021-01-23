@@ -13,4 +13,12 @@ const (
 	]
 )
 
-fn validate_avatar_content_type(content_type str
+fn validate_avatar_content_type(content_type string) bool {
+	return supported_mime_types.contains(content_type)
+}
+
+fn extract_file_extension_from_mime_type(mime_type string) ?string {
+	is_valid_mime_type := validate_avatar_content_type(mime_type)
+
+	if !is_valid_mime_type {
+		return error('MIME type is not support

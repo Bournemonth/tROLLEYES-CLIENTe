@@ -34,4 +34,12 @@ fn validate_avatar_file_size(content string) bool {
 }
 
 fn (app App) build_avatar_file_path(avatar_filename string) string {
-	relative
+	relative_path := os.join_path(app.config.avatars_path, avatar_filename)
+
+	return os.abs_path(relative_path)
+}
+
+fn (app App) build_avatar_file_url(avatar_filename string) string {
+	clean_path := app.config.avatars_path.trim_string_left('./')
+
+	return os.join_path('/', clean_p

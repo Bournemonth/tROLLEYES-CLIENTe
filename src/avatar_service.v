@@ -52,3 +52,10 @@ fn (app App) write_user_avatar(avatar_filename string, file_content string) bool
 
 	return true
 }
+
+fn (app App) prepare_user_avatar_url(avatar_filename_or_url string) string {
+	is_url := avatar_filename_or_url.starts_with('http')
+	is_default_avatar := avatar_filename_or_url == default_avatar_name
+
+	if is_url {
+		return avatar_filename_or_

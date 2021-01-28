@@ -42,4 +42,13 @@ fn (app App) build_avatar_file_path(avatar_filename string) string {
 fn (app App) build_avatar_file_url(avatar_filename string) string {
 	clean_path := app.config.avatars_path.trim_string_left('./')
 
-	return os.join_path('/', clean_p
+	return os.join_path('/', clean_path, avatar_filename)
+}
+
+fn (app App) write_user_avatar(avatar_filename string, file_content string) bool {
+	path := os.join_path(app.config.avatars_path, avatar_filename)
+
+	os.write_file(path, file_content) or { return false }
+
+	return true
+}

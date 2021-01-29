@@ -58,4 +58,12 @@ fn (app App) prepare_user_avatar_url(avatar_filename_or_url string) string {
 	is_default_avatar := avatar_filename_or_url == default_avatar_name
 
 	if is_url {
-		return avatar_filename_or_
+		return avatar_filename_or_url
+	}
+
+	if is_default_avatar {
+		return os.join_path('/', assets_path, avatar_filename_or_url)
+	}
+
+	return app.build_avatar_file_url(avatar_filename_or_url)
+}

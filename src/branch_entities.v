@@ -9,4 +9,5 @@ mut:
 	name    string [unique: 'branch']
 	author  string // author of latest commit on branch
 	hash    string // hash of latest commit on branch
-	date    int    // time of latest commit
+	date    int    // time of latest commit on branch
+}

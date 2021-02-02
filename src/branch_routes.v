@@ -19,4 +19,14 @@ fn (mut app App) handle_branch_count(username string, repo_name string) vweb.Res
 
 	count := app.get_count_repo_branches(repo.id)
 
-	return app.json(api.A
+	return app.json(api.ApiBranchCount{
+		success: true
+		result: count
+	})
+}
+
+['/:user/:repo/branches']
+pub fn (mut app App) branches(username string, repo_name string) vweb.Result {
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0

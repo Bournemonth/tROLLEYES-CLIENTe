@@ -29,4 +29,11 @@ fn (mut app App) handle_branch_count(username string, repo_name string) vweb.Res
 pub fn (mut app App) branches(username string, repo_name string) vweb.Result {
 	repo := app.find_repo_by_name_and_username(repo_name, username)
 
-	if repo.id == 0
+	if repo.id == 0 {
+		return app.json_error('Not found')
+	}
+
+	branches := app.get_all_repo_branches(repo.id)
+
+	return $vweb.html()
+}

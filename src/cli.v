@@ -24,4 +24,15 @@ pub fn (mut app App) command_fetcher() {
 					}
 					else {
 						println('Commands:')
-						println(
+						println('	!updaterepo')
+						println('	!adduser <username> <password> <email1> <email2>...')
+					}
+				}
+			} else {
+				error('Unkown syntax. Use !<command>')
+			}
+		} else {
+			error('Unkown syntax. Use !<command>')
+		}
+	}
+}

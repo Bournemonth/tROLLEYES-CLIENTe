@@ -19,3 +19,14 @@ pub fn (mut app App) handle_add_comment(username string, repo_name string) vweb.
 
 	if is_text_empty || is_issue_id_empty || !app.logged_in {
 		app.error('Issue comment is not valid')
+
+		return app.issue(username, repo_name, issue_id)
+	}
+
+	app.add_issue_comment(app.user.id, issue_id.int(), text)
+
+	// TODO: count comments
+	app.increment_issue_comments(issue_id.int())
+
+	return app.redirect('/${username}/${repo_name}/issue/${issue_id}')
+}

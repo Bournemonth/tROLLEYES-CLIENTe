@@ -12,4 +12,19 @@ fn (commit Commit) get_changes(repo Repo) []Change {
 	git_changes := repo.git('show ${commit.hash}')
 
 	mut change := Change{}
-	mut change
+	mut changes := []Change{}
+	mut started := false
+	for line in git_changes.split_into_lines() {
+		args := line.split(' ')
+		if args.len <= 0 {
+			continue
+		}
+
+		match args[0] {
+			'diff' {
+				started = true
+				if change.file.len > 0 {
+					changes << change
+					change = Change{}
+				}
+				chan

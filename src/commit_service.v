@@ -27,4 +27,23 @@ fn (commit Commit) get_changes(repo Repo) []Change {
 					changes << change
 					change = Change{}
 				}
-				chan
+				change.file = args[2][2..]
+			}
+			'index' {
+				continue
+			}
+			'---' {
+				continue
+			}
+			'+++' {
+				continue
+			}
+			'@@' {
+				change.diff = line
+			}
+			else {
+				if started {
+					if line.bytes()[0] == `+` {
+						change.additions++
+					}
+					if line

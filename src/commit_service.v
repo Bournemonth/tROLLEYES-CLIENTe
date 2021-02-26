@@ -46,4 +46,18 @@ fn (commit Commit) get_changes(repo Repo) []Change {
 					if line.bytes()[0] == `+` {
 						change.additions++
 					}
-					if line
+					if line.bytes()[0] == `-` {
+						change.deletions++
+					}
+					change.message += '${line}\n'
+				}
+			}
+		}
+	}
+
+	changes << change
+
+	return changes
+}
+
+fn (mut app App) add_commit_if_not_exist(repo_id int, branch_id int, last_hash string, author string, author_id int, message st

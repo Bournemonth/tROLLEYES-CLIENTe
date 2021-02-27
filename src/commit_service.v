@@ -73,4 +73,17 @@ fn (mut app App) add_commit_if_not_exist(repo_id int, branch_id int, last_hash s
 		author_id: author_id
 		author: author
 		hash: last_hash
-		created_at: 
+		created_at: date
+		repo_id: repo_id
+		branch_id: branch_id
+		message: message
+	}
+
+	sql app.db {
+		insert new_commit into Commit
+	}
+}
+
+fn (mut app App) find_repo_commits_as_page(repo_id int, branch_id int, offset int) []Commit {
+	return sql app.db {
+		select from Commit where re

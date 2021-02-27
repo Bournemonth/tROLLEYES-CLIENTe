@@ -60,4 +60,17 @@ fn (commit Commit) get_changes(repo Repo) []Change {
 	return changes
 }
 
-fn (mut app App) add_commit_if_not_exist(repo_id int, branch_id int, last_hash string, author string, author_id int, message st
+fn (mut app App) add_commit_if_not_exist(repo_id int, branch_id int, last_hash string, author string, author_id int, message string, date int) {
+	commit := sql app.db {
+		select from Commit where repo_id == repo_id && branch_id == branch_id && hash == last_hash limit 1
+	}
+
+	if commit.id > 0 {
+		return
+	}
+
+	new_commit := Commit{
+		author_id: author_id
+		author: author
+		hash: last_hash
+		created_at: 

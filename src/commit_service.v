@@ -86,4 +86,14 @@ fn (mut app App) add_commit_if_not_exist(repo_id int, branch_id int, last_hash s
 
 fn (mut app App) find_repo_commits_as_page(repo_id int, branch_id int, offset int) []Commit {
 	return sql app.db {
-		select from Commit where re
+		select from Commit where repo_id == repo_id && branch_id == branch_id order by created_at desc limit 35 offset offset
+	}
+}
+
+fn (mut app App) get_repo_commit_count(repo_id int, branch_id int) int {
+	return sql app.db {
+		select count from Commit where repo_id == repo_id && branch_id == branch_id
+	}
+}
+
+fn 

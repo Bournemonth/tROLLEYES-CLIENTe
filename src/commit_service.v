@@ -96,4 +96,14 @@ fn (mut app App) get_repo_commit_count(repo_id int, branch_id int) int {
 	}
 }
 
-fn 
+fn (mut app App) find_repo_commit_by_hash(repo_id int, hash string) Commit {
+	commits := sql app.db {
+		select from Commit where repo_id == repo_id && hash == hash
+	}
+	if commits.len == 1 {
+		return commits[0]
+	}
+	return Commit{}
+}
+
+fn (mut app App) find_repo_last_

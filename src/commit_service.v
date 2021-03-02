@@ -106,4 +106,8 @@ fn (mut app App) find_repo_commit_by_hash(repo_id int, hash string) Commit {
 	return Commit{}
 }
 
-fn (mut app App) find_repo_last_
+fn (mut app App) find_repo_last_commit(repo_id int, branch_id int) Commit {
+	return sql app.db {
+		select from Commit where repo_id == repo_id && branch_id == branch_id order by created_at desc limit 1
+	}
+}

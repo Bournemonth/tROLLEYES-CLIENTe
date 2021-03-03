@@ -13,4 +13,12 @@ pub fn set_rand_crypto_safe_seed() {
 	rand.seed([first_seed, second_seed])
 }
 
-pub fn 
+pub fn generate_salt() string {
+	return rand.i64().str()
+}
+
+// decode_basic_auth parses the `Authorization` header
+// returns login and password
+pub fn decode_basic_auth(encoded string) (string, string) {
+	decoded := base64.decode_str(encoded)
+	auth_pa

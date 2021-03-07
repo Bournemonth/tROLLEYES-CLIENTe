@@ -14,4 +14,7 @@ struct File {
 	size               int
 	views_count        int
 mut:
-	last_msg  
+	last_msg  string
+	last_time int
+	commit    Commit [skip]
+}

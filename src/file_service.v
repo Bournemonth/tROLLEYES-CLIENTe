@@ -26,4 +26,16 @@ fn (f File) pretty_last_time() string {
 	return time.unix(f.last_time).relative()
 }
 
-fn (f File) pretty_siz
+fn (f File) pretty_size() string {
+	sizes := ['bytes', 'KB', 'MB', 'GB', 'TB']
+	size_in_bytes := f.size
+
+	if size_in_bytes == 0 {
+		return 'n/a'
+	}
+
+	index := int(math.floor(math.log(size_in_bytes) / math.log(1024)))
+
+	if index == 0 {
+		return '${size_in_bytes} ${sizes[index]}'
+	

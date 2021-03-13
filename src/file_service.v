@@ -38,4 +38,14 @@ fn (f File) pretty_size() string {
 
 	if index == 0 {
 		return '${size_in_bytes} ${sizes[index]}'
-	
+	}
+
+	size_in := math.round_sig(size_in_bytes / (math.pow(1024, index)), 2)
+
+	return '${size_in} ${sizes[index]}'
+}
+
+fn calculate_lines_of_code(source string) (int, int) {
+	lines := source.split_into_lines()
+	loc := lines.len
+	sloc := lines.filter(it.trim_

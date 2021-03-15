@@ -48,4 +48,16 @@ fn (f File) pretty_size() string {
 fn calculate_lines_of_code(source string) (int, int) {
 	lines := source.split_into_lines()
 	loc := lines.len
-	sloc := lines.filter(it.trim_
+	sloc := lines.filter(it.trim_space() != '').len
+
+	return loc, sloc
+}
+
+fn (mut app App) add_file(file File) {
+	sql app.db {
+		insert file into File
+	}
+}
+
+fn (mut app App) find_repository_items(repo_id int, branch string, parent_path string) []File {
+	valid_parent_path := if parent_path =

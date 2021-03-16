@@ -60,4 +60,14 @@ fn (mut app App) add_file(file File) {
 }
 
 fn (mut app App) find_repository_items(repo_id int, branch string, parent_path string) []File {
-	valid_parent_path := if parent_path =
+	valid_parent_path := if parent_path == '' { '.' } else { parent_path }
+
+	items := sql app.db {
+		select from File where repo_id == repo_id && parent_path == valid_parent_path
+		&& branch == branch
+	}
+
+	return items
+}
+
+fn (mut app App) find_repo_file_by_path(repo_id int, item_branch string, path string)

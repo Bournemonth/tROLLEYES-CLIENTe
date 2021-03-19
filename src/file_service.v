@@ -78,4 +78,18 @@ fn (mut app App) find_repo_file_by_path(repo_id int, item_branch string, path st
 		valid_parent_path = '.'
 	}
 
-	app.info('find file repo_id=${repo_id} parent_path = ${valid_parent_path} branch=${item_branch} name=${it
+	app.info('find file repo_id=${repo_id} parent_path = ${valid_parent_path} branch=${item_branch} name=${item_branch}')
+
+	file := sql app.db {
+		select from File where repo_id == repo_id && parent_path == valid_parent_path
+		&& branch == item_branch && name == item_name limit 1
+	}
+
+	if file.name == '' {
+		return none
+	}
+
+	return file
+}
+
+fn (mut app App) delete_repository_file

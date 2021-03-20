@@ -100,4 +100,10 @@ fn (mut app App) delete_repository_files(repository_id int) {
 
 fn (mut app App) delete_repository_files_in_branch(repository_id int, branch_name string) {
 	sql app.db {
-		delete from File where repo_id == repository_id && branch =
+		delete from File where repo_id == repository_id && branch == branch_name
+	}
+}
+
+fn (mut app App) delete_repo_folder(path string) {
+	os.rmdir_all(os.real_path(path)) or { panic(err) }
+}

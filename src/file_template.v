@@ -13,4 +13,5 @@ fn (f File) format_commit_message() vweb.RawHtml {
 	id_query := r'(#\d+)'
 	mut re := regex.regex_opt(id_query) or { panic(err) }
 
-	return re.replace_by_fn(f.last_ms
+	return re.replace_by_fn(f.last_msg, replace_issue_id)
+}

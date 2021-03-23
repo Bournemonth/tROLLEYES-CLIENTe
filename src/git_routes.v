@@ -10,4 +10,16 @@ import compress.deflate
 fn (mut app App) handle_git_info(username string, git_repo_name string) vweb.Result {
 	repo_name := git.remove_git_extension_if_exists(git_repo_name)
 	user := app.get_user_by_username(username) or { return app.not_found() }
-	repo := app.find_re
+	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
+	service := extract_service_from_url(app.req.url)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	if service == .unknown {
+		return app.not_found()
+	}
+
+	is_receive_service := service == .receive
+	is_private_repo := !repo.is_publ

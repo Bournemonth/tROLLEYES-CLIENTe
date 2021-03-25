@@ -22,4 +22,13 @@ fn (mut app App) handle_git_info(username string, git_repo_name string) vweb.Res
 	}
 
 	is_receive_service := service == .receive
-	is_private_repo := !repo.is_publ
+	is_private_repo := !repo.is_public
+
+	if is_receive_service || is_private_repo {
+		app.check_git_http_access(username, repo_name) or { return app.ok('') }
+	}
+
+	refs := repo.git_advertise(service.str())
+	git_response := build_git_service_response(service, refs)
+
+	app.set_content_type('applicati

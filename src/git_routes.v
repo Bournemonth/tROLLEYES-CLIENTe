@@ -31,4 +31,13 @@ fn (mut app App) handle_git_info(username string, git_repo_name string) vweb.Res
 	refs := repo.git_advertise(service.str())
 	git_response := build_git_service_response(service, refs)
 
-	app.set_content_type('applicati
+	app.set_content_type('application/x-git-${service}-advertisement')
+	app.set_no_cache_headers()
+
+	return app.ok(git_response)
+}
+
+['/:user/:repo_name/git-upload-pack'; post]
+fn (mut app App) handle_git_upload_pack(username string, git_repo_name string) vweb.Result {
+	body := app.parse_body()
+	repo_name := git.remove_git

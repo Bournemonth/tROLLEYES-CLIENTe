@@ -40,4 +40,10 @@ fn (mut app App) handle_git_info(username string, git_repo_name string) vweb.Res
 ['/:user/:repo_name/git-upload-pack'; post]
 fn (mut app App) handle_git_upload_pack(username string, git_repo_name string) vweb.Result {
 	body := app.parse_body()
-	repo_name := git.remove_git
+	repo_name := git.remove_git_extension_if_exists(git_repo_name)
+	user := app.get_user_by_username(username) or { return app.not_found() }
+	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
+	is_private_repo := !repo.is_public
+
+	if repo.id == 0 {
+		return app.

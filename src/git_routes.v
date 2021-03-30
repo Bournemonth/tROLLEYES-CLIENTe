@@ -46,4 +46,18 @@ fn (mut app App) handle_git_upload_pack(username string, git_repo_name string) v
 	is_private_repo := !repo.is_public
 
 	if repo.id == 0 {
-		return app.
+		return app.not_found()
+	}
+
+	if is_private_repo {
+		app.check_git_http_access(username, repo_name) or { return app.ok('') }
+	}
+
+	git_response := repo.git_smart('upload-pack', body)
+
+	app.set_git_content_type_headers(.upload)
+
+	return app.ok(git_response)
+}
+
+['/:user/:repo_name/g

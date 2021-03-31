@@ -60,4 +60,8 @@ fn (mut app App) handle_git_upload_pack(username string, git_repo_name string) v
 	return app.ok(git_response)
 }
 
-['/:user/:repo_name/g
+['/:user/:repo_name/git-receive-pack'; post]
+fn (mut app App) handle_git_receive_pack(username string, git_repo_name string) vweb.Result {
+	body := app.parse_body()
+	repo_name := git.remove_git_extension_if_exists(git_repo_name)
+	user := app.get_user_by_username(username) or { return 

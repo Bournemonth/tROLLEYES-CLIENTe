@@ -64,4 +64,15 @@ fn (mut app App) handle_git_upload_pack(username string, git_repo_name string) v
 fn (mut app App) handle_git_receive_pack(username string, git_repo_name string) vweb.Result {
 	body := app.parse_body()
 	repo_name := git.remove_git_extension_if_exists(git_repo_name)
-	user := app.get_user_by_username(username) or { return 
+	user := app.get_user_by_username(username) or { return app.not_found() }
+	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	app.check_git_http_access(username, repo_name) or { return app.ok('') }
+
+	git_response := repo.git_smart('receive-pack', body)
+
+	branch_n

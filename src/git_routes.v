@@ -75,4 +75,12 @@ fn (mut app App) handle_git_receive_pack(username string, git_repo_name string) 
 
 	git_response := repo.git_smart('receive-pack', body)
 
-	branch_n
+	branch_name := git.parse_branch_name_from_receive_upload(body) or {
+		app.send_internal_error('Receive upload parsing error')
+
+		return app.ok('')
+	}
+
+	app.update_repo_after_push(repo.id, branch_name)
+
+	app.set_git_content_type_headers(.receive

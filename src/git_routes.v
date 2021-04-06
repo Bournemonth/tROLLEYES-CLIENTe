@@ -83,4 +83,14 @@ fn (mut app App) handle_git_receive_pack(username string, git_repo_name string) 
 
 	app.update_repo_after_push(repo.id, branch_name)
 
-	app.set_git_content_type_headers(.receive
+	app.set_git_content_type_headers(.receive)
+
+	return app.ok(git_response)
+}
+
+fn (mut app App) check_git_http_access(repository_owner string, repository_name string) ?bool {
+	has_valid_auth_header := app.check_basic_authorization_header()
+
+	if !has_valid_auth_header {
+		app.set_authenticate_headers()
+		app.se

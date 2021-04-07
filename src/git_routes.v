@@ -93,4 +93,15 @@ fn (mut app App) check_git_http_access(repository_owner string, repository_name 
 
 	if !has_valid_auth_header {
 		app.set_authenticate_headers()
-		app.se
+		app.send_unauthorized()
+	}
+
+	has_user_valid_credentials := app.check_user_credentials()
+
+	if has_user_valid_credentials {
+		username, _ := app.extract_user_credentials() or {
+			app.send_unauthorized()
+			return none
+		}
+
+		has_user_access := repository_owner == usern

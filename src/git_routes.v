@@ -104,4 +104,20 @@ fn (mut app App) check_git_http_access(repository_owner string, repository_name 
 			return none
 		}
 
-		has_user_access := repository_owner == usern
+		has_user_access := repository_owner == username
+
+		if has_user_access {
+			return true
+		} else {
+			app.send_not_found()
+			return none
+		}
+	}
+
+	app.send_unauthorized()
+	return none
+}
+
+fn (mut app App) check_basic_authorization_header() bool {
+	auth_header := app.get_header('Authorization')
+	has_auth_header := auth_he

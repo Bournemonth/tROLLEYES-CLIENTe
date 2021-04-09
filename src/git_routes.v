@@ -120,4 +120,21 @@ fn (mut app App) check_git_http_access(repository_owner string, repository_name 
 
 fn (mut app App) check_basic_authorization_header() bool {
 	auth_header := app.get_header('Authorization')
-	has_auth_header := auth_he
+	has_auth_header := auth_header.len > 0
+
+	if !has_auth_header {
+		return false
+	}
+
+	auth_header_parts := auth_header.fields()
+	auth_type := auth_header_parts[0]
+	is_basic_auth_type := auth_type == 'Basic'
+
+	if auth_header_parts.len == 2 || is_basic_auth_type {
+		return true
+	}
+
+	return false
+}
+
+fn (mut app App) ex

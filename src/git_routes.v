@@ -148,4 +148,11 @@ fn (mut app App) extract_user_credentials() ?(string, string) {
 	return decode_basic_auth(auth_header_parts[1])
 }
 
-fn (mut app App) check_user_credentials()
+fn (mut app App) check_user_credentials() bool {
+	username, password := app.extract_user_credentials() or { return false }
+	user := app.get_user_by_username(username) or { return false }
+
+	return compare_password_with_hash(password, user.salt, user.password)
+}
+
+fn (mut app App) se

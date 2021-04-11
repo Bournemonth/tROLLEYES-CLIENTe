@@ -137,4 +137,15 @@ fn (mut app App) check_basic_authorization_header() bool {
 	return false
 }
 
-fn (mut app App) ex
+fn (mut app App) extract_user_credentials() ?(string, string) {
+	auth_header := app.get_header('Authorization')
+	auth_header_parts := auth_header.fields()
+
+	if auth_header_parts.len < 2 {
+		return none
+	}
+
+	return decode_basic_auth(auth_header_parts[1])
+}
+
+fn (mut app App) check_user_credentials()

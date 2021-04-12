@@ -162,4 +162,11 @@ fn (mut app App) set_no_cache_headers() {
 }
 
 fn (mut app App) set_authenticate_headers() {
-	app.add_header('WWW-Aut
+	app.add_header('WWW-Authenticate', 'Basic realm="."')
+}
+
+fn (mut app App) set_git_content_type_headers(service GitService) {
+	if service == .upload {
+		app.set_content_type('application/x-git-upload-pack-result')
+	} else if service == .receive {
+		app.set_content_type('applic

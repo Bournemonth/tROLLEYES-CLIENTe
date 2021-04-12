@@ -155,4 +155,11 @@ fn (mut app App) check_user_credentials() bool {
 	return compare_password_with_hash(password, user.salt, user.password)
 }
 
-fn (mut app App) se
+fn (mut app App) set_no_cache_headers() {
+	app.add_header('Expires', 'Fri, 01 Jan 1980 00:00:00 GMT')
+	app.add_header('Pragma', 'no-cache')
+	app.add_header('Cache-Control', 'no-cache, max-age=0, must-revalidate')
+}
+
+fn (mut app App) set_authenticate_headers() {
+	app.add_header('WWW-Aut

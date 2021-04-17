@@ -169,4 +169,15 @@ fn (mut app App) set_git_content_type_headers(service GitService) {
 	if service == .upload {
 		app.set_content_type('application/x-git-upload-pack-result')
 	} else if service == .receive {
-		app.set_content_type('applic
+		app.set_content_type('application/x-git-receive-pack-result')
+	}
+}
+
+fn (mut app App) send_internal_error(custom_message string) {
+	message := if custom_message == '' { 'Internal Server error' } else { custom_message }
+
+	app.send_custom_error(500, message)
+}
+
+fn (mut app App) send_unauthorized() {
+	app.sen

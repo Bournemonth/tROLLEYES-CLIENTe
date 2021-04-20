@@ -180,4 +180,13 @@ fn (mut app App) send_internal_error(custom_message string) {
 }
 
 fn (mut app App) send_unauthorized() {
-	app.sen
+	app.send_custom_error(401, 'Unauthorized')
+}
+
+fn (mut app App) send_not_found() {
+	app.send_custom_error(404, 'Not Found')
+}
+
+fn (mut app App) send_custom_error(code int, text string) {
+	app.set_status(code, text)
+	app.send_response_to_c

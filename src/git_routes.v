@@ -189,4 +189,16 @@ fn (mut app App) send_not_found() {
 
 fn (mut app App) send_custom_error(code int, text string) {
 	app.set_status(code, text)
-	app.send_response_to_c
+	app.send_response_to_client(vweb.mime_types['.txt'], '')
+}
+
+fn (mut app App) parse_body() string {
+	body := app.req.data
+
+	if app.get_header('Content-Encoding') == 'gzip' {
+		decompressed := deflate.decompress(body.bytes()[10..]) or {
+			println(err)
+			return body
+		}
+
+		return decompressed.byt

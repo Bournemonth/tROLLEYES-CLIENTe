@@ -201,4 +201,8 @@ fn (mut app App) parse_body() string {
 			return body
 		}
 
-		return decompressed.byt
+		return decompressed.bytestr()
+	}
+
+	return body
+}

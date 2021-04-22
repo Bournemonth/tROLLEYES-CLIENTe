@@ -9,4 +9,7 @@ struct OAuthRequest {
 
 struct GitHubUser {
 	username string [json: 'login']
-	name   
+	name     string
+	email    string
+	avatar   string [json: 'avatar_url']
+}

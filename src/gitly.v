@@ -13,4 +13,18 @@ import config
 const (
 	commits_per_page   = 35
 	http_port          = 8080
-	expire_length      = 2
+	expire_length      = 200
+	posts_per_day      = 5
+	max_username_len   = 40
+	max_login_attempts = 5
+	max_user_repos     = 10
+	max_repo_name_len  = 100
+	max_namechanges    = 3
+	namechange_period  = time.hour * 24
+)
+
+struct App {
+	vweb.Context
+	started_at i64 [vweb_global]
+pub mut:
+	db sqlite.DB

@@ -28,3 +28,13 @@ struct App {
 	started_at i64 [vweb_global]
 pub mut:
 	db sqlite.DB
+mut:
+	version       string        [vweb_global]
+	logger        log.Log       [vweb_global]
+	config        config.Config [vweb_global]
+	settings      Settings
+	current_path  string
+	page_gen_time string
+	is_tree       bool
+	logged_in     bool
+	user          U

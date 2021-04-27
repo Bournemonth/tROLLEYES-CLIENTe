@@ -56,4 +56,17 @@ fn main() {
 
 fn new_app() &App {
 	mut app := &App{
-		db: sqlite.connect('gitly.sqlite') 
+		db: sqlite.connect('gitly.sqlite') or { panic(err) }
+		started_at: time.now().unix
+	}
+
+	set_rand_crypto_safe_seed()
+
+	app.create_tables()
+
+	create_directory_if_not_exists('logs')
+
+	app.setup_logger()
+
+	mut version := os.read_file('src/static/assets/version') or { 'unknown' }
+	git_result := os

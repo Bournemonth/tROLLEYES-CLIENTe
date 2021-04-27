@@ -37,4 +37,23 @@ mut:
 	page_gen_time string
 	is_tree       bool
 	logged_in     bool
-	user          U
+	user          User
+	path_split    []string
+	branch        string
+}
+
+fn C.sqlite3_config(int)
+
+fn main() {
+	C.sqlite3_config(3)
+
+	if os.args.contains('ci_run') {
+		return
+	}
+
+	vweb.run(new_app(), http_port)
+}
+
+fn new_app() &App {
+	mut app := &App{
+		db: sqlite.connect('gitly.sqlite') 

@@ -76,4 +76,18 @@ fn new_app() &App {
 	}
 
 	if version != app.version {
-		os.write_file('src/static/assets/version', app.version) or { panic(
+		os.write_file('src/static/assets/version', app.version) or { panic(err) }
+	}
+
+	app.version = version
+
+	app.handle_static('src/static', true)
+	app.handle_static('avatars', false)
+
+	app.load_settings()
+
+	app.config = config.read_config('./config.json') or {
+		panic('Config not found or has syntax errors')
+	}
+
+	create_dir

@@ -129,4 +129,21 @@ pub fn (mut app App) debug(msg string) {
 	app.logger.flush()
 }
 
-pub fn (
+pub fn (mut app App) init_server() {
+}
+
+pub fn (mut app App) before_request() {
+	app.logged_in = app.is_logged_in()
+
+	app.load_settings()
+
+	if app.logged_in {
+		app.user = app.get_user_from_cookies() or {
+			app.logged_in = false
+			User{}
+		}
+	}
+}
+
+['/']
+pub fn (mu

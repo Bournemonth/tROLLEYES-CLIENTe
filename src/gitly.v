@@ -90,4 +90,11 @@ fn new_app() &App {
 		panic('Config not found or has syntax errors')
 	}
 
-	create_dir
+	create_directory_if_not_exists(app.config.repo_storage_path)
+	create_directory_if_not_exists(app.config.archive_path)
+	create_directory_if_not_exists(app.config.avatars_path)
+
+	// Create the first admin user if the db is empty
+	app.get_user_by_id(1) or {}
+
+	if '-cmdapi' in os.args

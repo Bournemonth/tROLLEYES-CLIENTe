@@ -97,4 +97,18 @@ fn new_app() &App {
 	// Create the first admin user if the db is empty
 	app.get_user_by_id(1) or {}
 
-	if '-cmdapi' in os.args
+	if '-cmdapi' in os.args {
+		spawn app.command_fetcher()
+	}
+
+	return app
+}
+
+fn (mut app App) setup_logger() {
+	app.logger.set_level(.debug)
+
+	app.logger.set_full_logpath('./logs/log_${time.now().ymmdd()}.log')
+	app.logger.log_to_console_too()
+}
+
+pub fn (mut app App) warn(msg string)

@@ -111,4 +111,22 @@ fn (mut app App) setup_logger() {
 	app.logger.log_to_console_too()
 }
 
-pub fn (mut app App) warn(msg string)
+pub fn (mut app App) warn(msg string) {
+	app.logger.warn(msg)
+
+	app.logger.flush()
+}
+
+pub fn (mut app App) info(msg string) {
+	app.logger.info(msg)
+
+	app.logger.flush()
+}
+
+pub fn (mut app App) debug(msg string) {
+	app.logger.debug(msg)
+
+	app.logger.flush()
+}
+
+pub fn (

@@ -146,4 +146,15 @@ pub fn (mut app App) before_request() {
 }
 
 ['/']
-pub fn (mu
+pub fn (mut app App) index() vweb.Result {
+	no_users := app.get_users_count() == 0
+	if no_users {
+		return app.redirect('/register')
+	}
+
+	return $vweb.html()
+}
+
+pub fn (mut app App) redirect_to_index() vweb.Result {
+	return app.redirect('/')
+}

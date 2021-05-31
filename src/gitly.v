@@ -179,4 +179,16 @@ fn (mut app App) create_tables() {
 	sql app.db {
 		create table Issue
 	}
-	
+	//"created_at int default (strftime('%s', 'now'))"
+	sql app.db {
+		create table Commit
+	}
+	// author text default '' is to to avoid joins
+	sql app.db {
+		create table LangStat
+	}
+	sql app.db {
+		create table User
+	}
+	sql app.db {
+		create tabl

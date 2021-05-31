@@ -167,4 +167,16 @@ pub fn (mut app App) redirect_to_repository(username string, repo_name string) v
 	return app.redirect('/${username}/${repo_name}')
 }
 
-fn (mut a
+fn (mut app App) create_tables() {
+	sql app.db {
+		create table Repo
+	}
+	// unix time default now
+	sql app.db {
+		create table File
+	} // missing ON CONFLIC REPLACE
+	//"created_at int default (strftime('%s', 'now'))"
+	sql app.db {
+		create table Issue
+	}
+	

@@ -158,3 +158,13 @@ pub fn (mut app App) index() vweb.Result {
 pub fn (mut app App) redirect_to_index() vweb.Result {
 	return app.redirect('/')
 }
+
+pub fn (mut app App) redirect_to_login() vweb.Result {
+	return app.redirect('/login')
+}
+
+pub fn (mut app App) redirect_to_repository(username string, repo_name string) vweb.Result {
+	return app.redirect('/${username}/${repo_name}')
+}
+
+fn (mut a

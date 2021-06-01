@@ -191,4 +191,24 @@ fn (mut app App) create_tables() {
 		create table User
 	}
 	sql app.db {
-		create tabl
+		create table Email
+	}
+	sql app.db {
+		create table Contributor
+	}
+	sql app.db {
+		create table Activity
+	}
+	sql app.db {
+		create table Tag
+	}
+	sql app.db {
+		create table Release
+	}
+	sql app.db {
+		create table SshKey
+	}
+	sql app.db {
+		create table Comment
+	}
+	sql app

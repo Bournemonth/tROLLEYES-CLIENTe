@@ -247,4 +247,9 @@ fn (mut app App) json_error(message string) vweb.Result {
 	})
 }
 
-// maybe it shoul
+// maybe it should be implemented with another static server, in dev
+fn (mut app App) send_file(filname string, content string) vweb.Result {
+	app.add_header('Content-Disposition', 'attachment; filename="${filname}"')
+
+	return app.ok(content)
+}

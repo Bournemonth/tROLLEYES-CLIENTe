@@ -34,3 +34,32 @@ fn (mut app App) find_repo_issues_as_page(repo_id int, page int) []Issue {
 	return sql app.db {
 		select from Issue where repo_id == repo_id && is_pr == false limit 35 offset off
 	}
+}
+
+fn (mut app App) get_repo_issue_count(repo_id int) int {
+	return sql app.db {
+		select count from Issue where repo_id == repo_id
+	}
+}
+
+fn (mut app App) find_user_issues(user_id int) []Issue {
+	return sql app.db {
+		select from Issue where author_id == user_id && is_pr == false
+	}
+}
+
+fn (mut app App) delete_repo_issues(repo_id int) {
+	sql app.db {
+		delete from Issue where repo_id == repo_id
+	}
+}
+
+fn (mut app App) increment_issue_comments(id int) {
+	sql app.db {
+		update Issue set comments_count = comments_count + 1 where id == id
+	}
+}
+
+fn (i &Issue) relative_time() string {
+	return time.unix(i.created_at).relative()
+}

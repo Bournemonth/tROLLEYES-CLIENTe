@@ -27,3 +27,5 @@ enum IssueStatus {
 struct Label {
 	id    int
 	name  string
+	color string
+}

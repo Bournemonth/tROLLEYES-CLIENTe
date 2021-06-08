@@ -42,4 +42,8 @@ pub fn (app App) find_repo_lang_stats(repo_id int) []LangStat {
 	}
 }
 
-fn (app App) remove_repo_l
+fn (app App) remove_repo_lang_stats(repo_id int) {
+	sql app.db {
+		delete from LangStat where repo_id == repo_id
+	}
+}

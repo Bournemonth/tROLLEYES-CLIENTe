@@ -26,4 +26,10 @@ pub fn (mut app App) releases(username string, repo_name string, page int) vweb.
 
 	release_count := app.get_repo_release_count(repo_id)
 	offset := releases_per_page * page
-	page_count := calculate_pages
+	page_count := calculate_pages(release_count, releases_per_page)
+	is_first_page := check_first_page(page)
+	is_last_page := check_last_page(release_count, offset, releases_per_page)
+	prev_page, next_page := generate_prev_next_pages(page)
+
+	tags := app.get_all_repo_tags(repo_id)
+	rels := app.find_

@@ -32,4 +32,14 @@ pub fn (mut app App) releases(username string, repo_name string, page int) vweb.
 	prev_page, next_page := generate_prev_next_pages(page)
 
 	tags := app.get_all_repo_tags(repo_id)
-	rels := app.find_
+	rels := app.find_repo_releases_as_page(repo_id, offset)
+	users := app.find_repo_registered_contributor(repo_id)
+
+	download_archive_prefix := '/${username}/${repo_name}/tag'
+
+	for rel in rels {
+		release.notes = rel.notes
+		mut user_id := 0
+
+		for tag in tags {
+			if tag.id == re

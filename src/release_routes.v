@@ -55,4 +55,9 @@ pub fn (mut app App) releases(username string, repo_name string, page int) vweb.
 				release.user = user.username
 				break
 			}
-		
+		}
+		releases << release
+	}
+
+	return $vweb.html()
+}

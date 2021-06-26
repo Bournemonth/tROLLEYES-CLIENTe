@@ -42,4 +42,17 @@ pub fn (mut app App) releases(username string, repo_name string, page int) vweb.
 		mut user_id := 0
 
 		for tag in tags {
-			if tag.id == re
+			if tag.id == rel.tag_id {
+				release.tag_name = tag.name
+				release.tag_hash = tag.hash
+				release.date = time.unix(tag.created_at)
+				user_id = tag.user_id
+				break
+			}
+		}
+		for user in users {
+			if user.id == user_id {
+				release.user = user.username
+				break
+			}
+		

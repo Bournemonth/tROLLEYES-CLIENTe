@@ -20,3 +20,17 @@ struct Repo {
 	latest_update_hash string    [skip]
 	latest_activity    time.Time [skip]
 mut:
+	webhook_secret     string
+	tags_count         int
+	open_issues_count  int
+	open_prs_count     int
+	releases_count     int
+	branches_count     int
+	stars_count        int
+	lang_stats         []LangStat        [skip]
+	created_at         int
+	contributors_count int
+	labels             []Label           [skip]
+	status             RepoStatus        [skip]
+	msg_cache          map[string]string [skip]
+}

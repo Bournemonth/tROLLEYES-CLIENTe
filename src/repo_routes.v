@@ -26,4 +26,17 @@ pub fn (mut app App) user_repos(username string) vweb.Result {
 }
 
 ['/:username/stars']
-pub fn (mut app App) user_stars
+pub fn (mut app App) user_stars(username string) vweb.Result {
+	exists, user := app.check_username(username)
+
+	if !exists {
+		return app.not_found()
+	}
+
+	repos := app.find_user_starred_repos(app.user.id)
+
+	return $vweb.html()
+}
+
+['/:username/:repo_name/settings']
+pub fn (mut app App) repo_sett

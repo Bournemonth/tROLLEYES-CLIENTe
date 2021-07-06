@@ -39,4 +39,9 @@ pub fn (mut app App) user_stars(username string) vweb.Result {
 }
 
 ['/:username/:repo_name/settings']
-pub fn (mut app App) repo_sett
+pub fn (mut app App) repo_settings(username string, repo_name string) vweb.Result {
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+	is_owner := app.check_repo_owner(app.user.username, repo_name)
+
+	if !is_owner {
+		return app.redirect_to_repository(username, repo_name

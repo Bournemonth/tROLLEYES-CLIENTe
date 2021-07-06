@@ -52,4 +52,13 @@ pub fn (mut app App) repo_settings(username string, repo_name string) vweb.Resul
 
 ['/:username/:repo_name/settings'; post]
 pub fn (mut app App) handle_update_repo_settings(username string, repo_name string, webhook_secret string) vweb.Result {
-	repo := app.find_repo_by_name_and_username(repo_name, 
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+	is_owner := app.check_repo_owner(app.user.username, repo_name)
+
+	if !is_owner {
+		return app.redirect_to_repository(username, repo_name)
+	}
+
+	if webhook_secret != '' && webhook_secret != repo.webhook_secret {
+		webhook := sha1.hexhash(webhook_secret)
+		app.set_repo_web

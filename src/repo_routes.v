@@ -87,4 +87,9 @@ pub fn (mut app App) handle_repo_delete(username string, repo_name string) vweb.
 }
 
 ['/:username/:repo_name/move'; post]
-pub fn (mut app App) handle_repo_move(username string, rep
+pub fn (mut app App) handle_repo_move(username string, repo_name string, dest string, verify string) vweb.Result {
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+	is_owner := app.check_repo_owner(app.user.username, repo_name)
+
+	if !is_owner {
+		return app.redirect_to_repository(username, repo_

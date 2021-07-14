@@ -61,4 +61,12 @@ pub fn (mut app App) handle_update_repo_settings(username string, repo_name stri
 
 	if webhook_secret != '' && webhook_secret != repo.webhook_secret {
 		webhook := sha1.hexhash(webhook_secret)
-		app.set_repo_web
+		app.set_repo_webhook_secret(repo.id, webhook)
+	}
+
+	return app.redirect_to_repository(username, repo_name)
+}
+
+['/:user/:repo_name/delete'; post]
+pub fn (mut app App) handle_repo_delete(username string, repo_name string) vweb.Result {
+	repo := app.find_repo_by_name_and_use

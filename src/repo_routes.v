@@ -77,4 +77,14 @@ pub fn (mut app App) handle_repo_delete(username string, repo_name string) vweb.
 	}
 
 	if app.form['verify'] == '${username}/${repo_name}' {
-		spawn app.delete_repository(repo.id, re
+		spawn app.delete_repository(repo.id, repo.git_dir, repo.name)
+	} else {
+		app.error('Verification failed')
+		return app.repo_settings(username, repo_name)
+	}
+
+	return app.redirect_to_index()
+}
+
+['/:username/:repo_name/move'; post]
+pub fn (mut app App) handle_repo_move(username string, rep

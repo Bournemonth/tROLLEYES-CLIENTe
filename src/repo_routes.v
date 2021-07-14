@@ -69,4 +69,12 @@ pub fn (mut app App) handle_update_repo_settings(username string, repo_name stri
 
 ['/:user/:repo_name/delete'; post]
 pub fn (mut app App) handle_repo_delete(username string, repo_name string) vweb.Result {
-	repo := app.find_repo_by_name_and_use
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+	is_owner := app.check_repo_owner(app.user.username, repo_name)
+
+	if !is_owner {
+		return app.redirect_to_repository(username, repo_name)
+	}
+
+	if app.form['verify'] == '${username}/${repo_name}' {
+		spawn app.delete_repository(repo.id, re

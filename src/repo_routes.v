@@ -92,4 +92,13 @@ pub fn (mut app App) handle_repo_move(username string, repo_name string, dest st
 	is_owner := app.check_repo_owner(app.user.username, repo_name)
 
 	if !is_owner {
-		return app.redirect_to_repository(username, repo_
+		return app.redirect_to_repository(username, repo_name)
+	}
+
+	if dest != '' && verify == '${username}/${repo_name}' {
+		dest_user := app.get_user_by_username(dest) or {
+			app.error('Unknown user ${dest}')
+			return app.repo_settings(username, repo_name)
+		}
+
+		if app.user_has_repo(dest_user.id, repo.name)

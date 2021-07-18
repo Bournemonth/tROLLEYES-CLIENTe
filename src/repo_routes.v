@@ -108,4 +108,16 @@ pub fn (mut app App) handle_repo_move(username string, repo_name string, dest st
 
 		if app.get_count_user_repos(dest_user.id) >= max_user_repos {
 			app.error('User already reached the repo limit')
-			return app.repo_settings(username,
+			return app.repo_settings(username, repo_name)
+		}
+
+		app.move_repo_to_user(repo.id, dest_user.id, dest_user.username)
+
+		return app.redirect('/${dest_user.username}/${repo.name}')
+	} else {
+		app.error('Verification failed')
+
+		return app.repo_settings(username, repo_name)
+	}
+
+	return a

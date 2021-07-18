@@ -101,4 +101,11 @@ pub fn (mut app App) handle_repo_move(username string, repo_name string, dest st
 			return app.repo_settings(username, repo_name)
 		}
 
-		if app.user_has_repo(dest_user.id, repo.name)
+		if app.user_has_repo(dest_user.id, repo.name) {
+			app.error('User already owns repo ${repo.name}')
+			return app.repo_settings(username, repo_name)
+		}
+
+		if app.get_count_user_repos(dest_user.id) >= max_user_repos {
+			app.error('User already reached the repo limit')
+			return app.repo_settings(username,

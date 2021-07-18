@@ -120,4 +120,14 @@ pub fn (mut app App) handle_repo_move(username string, repo_name string, dest st
 		return app.repo_settings(username, repo_name)
 	}
 
-	return a
+	return app.redirect_to_index()
+}
+
+['/:username/:repo_name']
+pub fn (mut app App) handle_tree(username string, repo_name string) vweb.Result {
+	match repo_name {
+		'repos' {
+			return app.user_repos(username)
+		}
+		'issues' {
+			return app.handle_get_user_issu

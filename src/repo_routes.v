@@ -166,4 +166,15 @@ pub fn (mut app App) handle_repo_update(username string, repo_name string) vweb.
 		return app.not_found()
 	}
 
-	if
+	if app.user.is_admin {
+		app.update_repo_from_remote(mut repo)
+		app.slow_fetch_files_info(mut repo, 'master', '.')
+	}
+
+	return app.redirect_to_repository(username, repo_name)
+}
+
+['/new']
+pub fn (mut app App) new() vweb.Result {
+	if !app.logged_in {
+		return app.redi

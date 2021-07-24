@@ -155,4 +155,15 @@ pub fn (mut app App) handle_branch_tree(username string, repo_name string, branc
 		return app.not_found()
 	}
 
-	return app.tr
+	return app.tree(username, repo_name, branch_name, '')
+}
+
+['/:username/:repo_name/update']
+pub fn (mut app App) handle_repo_update(username string, repo_name string) vweb.Result {
+	mut repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	if

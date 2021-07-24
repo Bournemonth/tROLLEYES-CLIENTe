@@ -144,4 +144,15 @@ pub fn (mut app App) handle_tree(username string, repo_name string) vweb.Result 
 		return app.not_found()
 	}
 
-	return app.tree(username, repo_name, repo.primary_branch, '
+	return app.tree(username, repo_name, repo.primary_branch, '')
+}
+
+['/:username/:repo_name/tree/:branch_name']
+pub fn (mut app App) handle_branch_tree(username string, repo_name string, branch_name string) vweb.Result {
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	return app.tr

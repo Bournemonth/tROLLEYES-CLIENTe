@@ -130,4 +130,18 @@ pub fn (mut app App) handle_tree(username string, repo_name string) vweb.Result 
 			return app.user_repos(username)
 		}
 		'issues' {
-			return app.handle_get_user_issu
+			return app.handle_get_user_issues(username)
+		}
+		'settings' {
+			return app.user_settings(username)
+		}
+		else {}
+	}
+
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	return app.tree(username, repo_name, repo.primary_branch, '

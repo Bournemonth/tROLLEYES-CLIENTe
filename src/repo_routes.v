@@ -194,4 +194,14 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 	}
 
 	if app.get_count_user_repos(app.user.id) >= max_user_repos {
-		app.error('You have reached the limit for the number 
+		app.error('You have reached the limit for the number of repositories')
+
+		return app.new()
+	}
+
+	if name.len > max_repo_name_len {
+		app.error('The repository name is too long (should be fewer than ${max_repo_name_len} characters)')
+		return app.new()
+	}
+
+	repo := app.find_repo_by_name_an

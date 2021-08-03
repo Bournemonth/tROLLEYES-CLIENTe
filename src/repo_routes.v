@@ -186,4 +186,12 @@ pub fn (mut app App) new() vweb.Result {
 ['/new'; post]
 pub fn (mut app App) handle_new_repo(name string, clone_url string, description string, no_redirect string) vweb.Result {
 	mut valid_clone_url := clone_url
-	is_clone_url_empty := validation.is_str
+	is_clone_url_empty := validation.is_string_empty(clone_url)
+	is_public := app.form['repo_visibility'] == 'public'
+
+	if !app.logged_in {
+		return app.redirect_to_login()
+	}
+
+	if app.get_count_user_repos(app.user.id) >= max_user_repos {
+		app.error('You have reached the limit for the number 

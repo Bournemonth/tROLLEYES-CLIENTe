@@ -177,4 +177,13 @@ pub fn (mut app App) handle_repo_update(username string, repo_name string) vweb.
 ['/new']
 pub fn (mut app App) new() vweb.Result {
 	if !app.logged_in {
-		return app.redi
+		return app.redirect_to_login()
+	}
+
+	return $vweb.html()
+}
+
+['/new'; post]
+pub fn (mut app App) handle_new_repo(name string, clone_url string, description string, no_redirect string) vweb.Result {
+	mut valid_clone_url := clone_url
+	is_clone_url_empty := validation.is_str

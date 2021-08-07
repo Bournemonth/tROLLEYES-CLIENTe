@@ -204,4 +204,16 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 		return app.new()
 	}
 
-	repo := app.find_repo_by_name_an
+	repo := app.find_repo_by_name_and_username(name, app.user.username)
+
+	if repo.id != 0 {
+		app.error('A repository with the name "${name}" already exists')
+		return app.new()
+	}
+
+	if name.contains(' ') {
+		app.error('Repository name cannot contain spaces')
+		return app.new()
+	}
+
+	is_

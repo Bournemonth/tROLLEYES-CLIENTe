@@ -216,4 +216,15 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 		return app.new()
 	}
 
-	is_
+	is_repo_name_valid := validation.is_repository_name_valid(name)
+
+	if !is_repo_name_valid {
+		app.error('The repository name is not valid')
+
+		return app.new()
+	}
+
+	has_clone_url_https_prefix := clone_url.starts_with('https://')
+
+	if !is_clone_url_empty {
+		if !has_clone_

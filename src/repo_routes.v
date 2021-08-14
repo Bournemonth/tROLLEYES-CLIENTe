@@ -248,4 +248,18 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 		git_dir: repo_path
 		user_id: app.user.id
 		primary_branch: 'master'
-		user_name: a
+		user_name: app.user.username
+		clone_url: valid_clone_url
+		is_public: is_public
+	}
+
+	if is_clone_url_empty {
+		os.mkdir(new_repo.git_dir) or { panic(err) }
+
+		new_repo.git('init --bare')
+	} else {
+		new_repo.clone()
+	}
+
+	app.add_repo(new_repo)
+	new_repo = app.find_repo_by_name

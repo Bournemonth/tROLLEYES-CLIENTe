@@ -236,3 +236,16 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 		if !is_git_repo {
 			app.error('The repository URL does not contain any git repository or the server does not respond')
 
+			return app.new()
+		}
+	}
+
+	repo_path := os.join_path(app.config.repo_storage_path, app.user.username, name)
+
+	mut new_repo := Repo{
+		name: name
+		description: description
+		git_dir: repo_path
+		user_id: app.user.id
+		primary_branch: 'master'
+		user_name: a

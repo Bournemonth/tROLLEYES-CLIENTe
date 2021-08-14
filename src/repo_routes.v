@@ -227,4 +227,12 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 	has_clone_url_https_prefix := clone_url.starts_with('https://')
 
 	if !is_clone_url_empty {
-		if !has_clone_
+		if !has_clone_url_https_prefix {
+			valid_clone_url = 'https://' + clone_url
+		}
+
+		is_git_repo := git.check_git_repo_url(valid_clone_url)
+
+		if !is_git_repo {
+			app.error('The repository URL does not contain any git repository or the server does not respond')
+

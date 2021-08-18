@@ -295,4 +295,13 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 }
 
 ['/:user/:repository/tree/:branch_name/:path...']
-pub fn (mut app App) tree(username string, repo_name string
+pub fn (mut app App) tree(username string, repo_name string, branch_name string, path string) vweb.Result {
+	mut repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	_, user := app.check_username(username)
+	if !repo.is_public {
+		if user.

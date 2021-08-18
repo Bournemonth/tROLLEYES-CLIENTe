@@ -272,4 +272,17 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 	}
 
 	primary_branch := git.get_repository_primary_branch(repo_path)
-	app.update_repo_primary_branch(repo_id, primary_
+	app.update_repo_primary_branch(repo_id, primary_branch)
+
+	new_repo = app.find_repo_by_id(repo_id)
+
+	// Update only cloned repositories
+	if !is_clone_url_empty {
+		app.update_repo_from_fs(mut new_repo)
+	}
+
+	if no_redirect == '1' {
+		return app.text('ok')
+	}
+
+	has_first_repo_activity := app.has_activity(app.user.id, 'first_repo'

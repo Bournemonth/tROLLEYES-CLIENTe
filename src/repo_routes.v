@@ -262,4 +262,14 @@ pub fn (mut app App) handle_new_repo(name string, clone_url string, description 
 	}
 
 	app.add_repo(new_repo)
-	new_repo = app.find_repo_by_name
+	new_repo = app.find_repo_by_name_and_user_id(new_repo.name, app.user.id)
+	repo_id := new_repo.id
+
+	if repo_id == 0 {
+		app.info('Repo was not inserted')
+
+		return app.redirect('/new')
+	}
+
+	primary_branch := git.get_repository_primary_branch(repo_path)
+	app.update_repo_primary_branch(repo_id, primary_

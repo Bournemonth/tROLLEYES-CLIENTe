@@ -345,4 +345,10 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 	mut items := app.find_repository_items(repo_id, branch_name, app.current_path)
 	branch := app.find_repo_branch_by_name(repo.id, branch_name)
 
-	app.info('${log_prefix}: ${item
+	app.info('${log_prefix}: ${items.len} items found in branch ${branch_name}')
+
+	if items.len == 0 {
+		// No files in the db, fetch them from git and cache in db
+		app.info('${log_prefix}: caching items in repository with ${repo_id}')
+
+		items = app.cache_repository_items(mut repo, branch

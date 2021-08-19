@@ -319,4 +319,20 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		return vweb.not_found()
 	}
 
-	path_parts := path
+	path_parts := path.split('/')
+
+	app.path_split = [repo_name]
+	app.path_split << path_parts
+
+	app.is_tree = true
+
+	app.increment_repo_views(repo.id)
+
+	mut up := '/'
+	can_up := path != ''
+	if can_up {
+		if path.split('/').len == 1 {
+			up = '../..'
+		} else {
+			up = app.req.url.all_before_last('/')
+		}

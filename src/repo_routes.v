@@ -304,4 +304,19 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 
 	_, user := app.check_username(username)
 	if !repo.is_public {
-		if user.
+		if user.id != app.user.id {
+			return app.not_found()
+		}
+	}
+
+	repo_id := repo.id
+	log_prefix := '${username}/${repo_name}'
+
+	app.fetch_tags(repo)
+
+	app.current_path = '/${path}'
+	if app.current_path.contains('/favicon.svg') {
+		return vweb.not_found()
+	}
+
+	path_parts := path

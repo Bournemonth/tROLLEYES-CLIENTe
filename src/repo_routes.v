@@ -336,3 +336,13 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		} else {
 			up = app.req.url.all_before_last('/')
 		}
+	}
+
+	if app.current_path.starts_with('/') {
+		app.current_path = app.current_path[1..]
+	}
+
+	mut items := app.find_repository_items(repo_id, branch_name, app.current_path)
+	branch := app.find_repo_branch_by_name(repo.id, branch_name)
+
+	app.info('${log_prefix}: ${item

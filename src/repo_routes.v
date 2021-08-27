@@ -351,4 +351,13 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		// No files in the db, fetch them from git and cache in db
 		app.info('${log_prefix}: caching items in repository with ${repo_id}')
 
-		items = app.cache_repository_items(mut repo, branch
+		items = app.cache_repository_items(mut repo, branch_name, app.current_path)
+		app.slow_fetch_files_info(mut repo, branch_name, app.current_path)
+	}
+
+	if items.any(it.last_msg == '') {
+		// If any of the files has a missing `last_msg`, we need to refetch it.
+		app.slow_fetch_files_info(mut repo, branch_name, app.current_path)
+	}
+
+	/

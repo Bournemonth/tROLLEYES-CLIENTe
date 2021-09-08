@@ -360,4 +360,14 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		app.slow_fetch_files_info(mut repo, branch_name, app.current_path)
 	}
 
-	/
+	// Fetch last commit message for this directory, printed at the top of the tree
+	mut last_commit := Commit{}
+	if can_up {
+		mut p := path
+		if p.ends_with('/') {
+			p = p[0..path.len - 1]
+		}
+		if !p.contains('/') {
+			p = '/${p}'
+		}
+		if dir :

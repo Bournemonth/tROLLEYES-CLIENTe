@@ -370,4 +370,12 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		if !p.contains('/') {
 			p = '/${p}'
 		}
-		if dir :
+		if dir := app.find_repo_file_by_path(repo.id, branch_name, p) {
+			println('hash=${dir.last_hash}')
+			last_commit = app.find_repo_commit_by_hash(repo.id, dir.last_hash)
+		}
+	} else {
+		last_commit = app.find_repo_last_commit(repo.id, branch.id)
+	}
+
+	diff := int(time.t

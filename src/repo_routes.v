@@ -378,4 +378,14 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		last_commit = app.find_repo_last_commit(repo.id, branch.id)
 	}
 
-	diff := int(time.t
+	diff := int(time.ticks() - app.page_gen_start)
+	if diff == 0 {
+		app.page_gen_time = '<1ms'
+	} else {
+		app.page_gen_time = '${diff}ms'
+	}
+
+	// Update items after fetching info
+	items = app.find_repository_items(repo_id, branch_name, app.current_path)
+
+	dirs := items.filter

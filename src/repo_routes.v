@@ -407,3 +407,15 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		readme_content := repo.read_file(branch_name, readme_path)
 		highlighted_readme, _, _ := highlight.highlight_text(readme_content, readme_path,
 			false)
+
+		readme = vweb.RawHtml(highlighted_readme)
+	}
+
+	license_file := find_license_file(items) or { File{} }
+	mut license_file_path := ''
+
+	if license_file.id != 0 {
+		license_file_path = '/${username}/${repo_name}/blob/${branch_name}/LICENSE'
+	}
+
+	watcher_count := ap

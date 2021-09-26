@@ -400,4 +400,10 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 
 	// Get readme after updating repository
 	mut readme := vweb.RawHtml('')
-	readme_file 
+	readme_file := find_readme_file(items) or { File{} }
+
+	if readme_file.id != 0 {
+		readme_path := '${path}/${readme_file.name}'
+		readme_content := repo.read_file(branch_name, readme_path)
+		highlighted_readme, _, _ := highlight.highlight_text(readme_content, readme_path,
+			false)

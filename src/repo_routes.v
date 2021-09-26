@@ -388,4 +388,16 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 	// Update items after fetching info
 	items = app.find_repository_items(repo_id, branch_name, app.current_path)
 
-	dirs := items.filter
+	dirs := items.filter(it.is_dir)
+	files := items.filter(!it.is_dir)
+
+	items = []
+	items << dirs
+	items << files
+
+	commits_count := app.get_repo_commit_count(repo.id, branch.id)
+	has_commits := commits_count > 0
+
+	// Get readme after updating repository
+	mut readme := vweb.RawHtml('')
+	readme_file 

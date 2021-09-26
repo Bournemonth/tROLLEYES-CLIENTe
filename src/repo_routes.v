@@ -418,4 +418,12 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 		license_file_path = '/${username}/${repo_name}/blob/${branch_name}/LICENSE'
 	}
 
-	watcher_count := ap
+	watcher_count := app.get_count_repo_watchers(repo_id)
+	is_repo_starred := app.check_repo_starred(repo_id, app.user.id)
+	is_repo_watcher := app.check_repo_watcher_status(repo_id, app.user.id)
+	is_top_directory := app.current_path == ''
+
+	return $vweb.html()
+}
+
+['/api/v1/repos

@@ -437,4 +437,11 @@ pub fn (mut app App) handle_api_repo_star(repo_id_str string) vweb.Result {
 	}
 
 	user_id := app.user.id
-	app.toggle_repo_
+	app.toggle_repo_star(repo_id, user_id)
+	is_repo_starred := app.check_repo_starred(repo_id, user_id)
+
+	return app.json_success(is_repo_starred)
+}
+
+['/api/v1/repos/:repo_id/watch'; 'post']
+pub fn (mut app App) handle_api_repo_watch(repo_id_str string) vweb.Res

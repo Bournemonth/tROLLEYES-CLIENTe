@@ -426,4 +426,15 @@ pub fn (mut app App) tree(username string, repo_name string, branch_name string,
 	return $vweb.html()
 }
 
-['/api/v1/repos
+['/api/v1/repos/:repo_id/star'; 'post']
+pub fn (mut app App) handle_api_repo_star(repo_id_str string) vweb.Result {
+	repo_id := repo_id_str.int()
+
+	has_access := app.has_user_repo_read_access(app.user.id, repo_id)
+
+	if !has_access {
+		return app.json_error('Not found')
+	}
+
+	user_id := app.user.id
+	app.toggle_repo_

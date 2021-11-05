@@ -444,4 +444,15 @@ pub fn (mut app App) handle_api_repo_star(repo_id_str string) vweb.Result {
 }
 
 ['/api/v1/repos/:repo_id/watch'; 'post']
-pub fn (mut app App) handle_api_repo_watch(repo_id_str string) vweb.Res
+pub fn (mut app App) handle_api_repo_watch(repo_id_str string) vweb.Result {
+	repo_id := repo_id_str.int()
+
+	has_access := app.has_user_repo_read_access(app.user.id, repo_id)
+
+	if !has_access {
+		return app.json_error('Not found')
+	}
+
+	user_id := app.user.id
+	app.toggle_repo_watcher_status(repo_id, user_id)
+	is_watching := app.ch

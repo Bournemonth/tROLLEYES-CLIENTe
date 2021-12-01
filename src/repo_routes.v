@@ -455,4 +455,11 @@ pub fn (mut app App) handle_api_repo_watch(repo_id_str string) vweb.Result {
 
 	user_id := app.user.id
 	app.toggle_repo_watcher_status(repo_id, user_id)
-	is_watching := app.ch
+	is_watching := app.check_repo_watcher_status(repo_id, user_id)
+
+	return app.json_success(is_watching)
+}
+
+['/:username/:repo_name/contributors']
+pub fn (mut app App) contributors(username string, repo_name string) vweb.Result {
+	repo := app.find_repo_by_name_and_

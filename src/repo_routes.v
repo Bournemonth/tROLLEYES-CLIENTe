@@ -474,4 +474,15 @@ pub fn (mut app App) contributors(username string, repo_name string) vweb.Result
 }
 
 ['/:username/:repo_name/blob/:branch_name/:path...']
-pub fn (mut app App) blob(username str
+pub fn (mut app App) blob(username string, repo_name string, branch_name string, path string) vweb.Result {
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	mut path_parts := path.split('/')
+	path_parts.pop()
+
+	app.current_path = path
+	app.path_split = [repo_

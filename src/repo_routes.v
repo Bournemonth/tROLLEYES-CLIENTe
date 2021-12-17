@@ -462,4 +462,16 @@ pub fn (mut app App) handle_api_repo_watch(repo_id_str string) vweb.Result {
 
 ['/:username/:repo_name/contributors']
 pub fn (mut app App) contributors(username string, repo_name string) vweb.Result {
-	repo := app.find_repo_by_name_and_
+	repo := app.find_repo_by_name_and_username(repo_name, username)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	contributors := app.find_repo_registered_contributor(repo.id)
+
+	return $vweb.html()
+}
+
+['/:username/:repo_name/blob/:branch_name/:path...']
+pub fn (mut app App) blob(username str

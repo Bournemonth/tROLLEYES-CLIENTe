@@ -485,4 +485,12 @@ pub fn (mut app App) blob(username string, repo_name string, branch_name string,
 	path_parts.pop()
 
 	app.current_path = path
-	app.path_split = [repo_
+	app.path_split = [repo_name]
+	app.path_split << path_parts
+
+	if !app.contains_repo_branch(repo.id, branch_name) && branch_name != repo.primary_branch {
+		app.info('Branch ${branch_name} not found')
+		return app.not_found()
+	}
+
+	raw_url := '/${username}/${repo_name}/raw/${branch_name}/${path}

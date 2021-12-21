@@ -497,4 +497,12 @@ pub fn (mut app App) blob(username string, repo_name string, branch_name string,
 	file := app.find_repo_file_by_path(repo.id, branch_name, path) or { return app.not_found() }
 	is_markdown := file.name.to_lower().ends_with('.md')
 	plain_text := repo.read_file(branch_name, path)
-	highlighted_source, _, _ := highlight.hi
+	highlighted_source, _, _ := highlight.highlight_text(plain_text, file.name, false)
+	source := vweb.RawHtml(highlighted_source)
+	loc, sloc := calculate_lines_of_code(plain_text)
+
+	return $vweb.html()
+}
+
+['/:user/:repository/raw/:branch_name/:path...']
+pub fn (mut app App) handle_raw(username string, repo_name stri

@@ -493,4 +493,8 @@ pub fn (mut app App) blob(username string, repo_name string, branch_name string,
 		return app.not_found()
 	}
 
-	raw_url := '/${username}/${repo_name}/raw/${branch_name}/${path}
+	raw_url := '/${username}/${repo_name}/raw/${branch_name}/${path}'
+	file := app.find_repo_file_by_path(repo.id, branch_name, path) or { return app.not_found() }
+	is_markdown := file.name.to_lower().ends_with('.md')
+	plain_text := repo.read_file(branch_name, path)
+	highlighted_source, _, _ := highlight.hi

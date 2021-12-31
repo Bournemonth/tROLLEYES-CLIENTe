@@ -505,4 +505,12 @@ pub fn (mut app App) blob(username string, repo_name string, branch_name string,
 }
 
 ['/:user/:repository/raw/:branch_name/:path...']
-pub fn (mut app App) handle_raw(username string, repo_name stri
+pub fn (mut app App) handle_raw(username string, repo_name string, branch_name string, path string) vweb.Result {
+	user := app.get_user_by_username(username) or { return app.not_found() }
+	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	// TO

@@ -513,4 +513,8 @@ pub fn (mut app App) handle_raw(username string, repo_name string, branch_name s
 		return app.not_found()
 	}
 
-	// TO
+	// TODO: throw error when git returns non-zero status
+	file_source := repo.git('--no-pager show ${branch_name}:${path}')
+
+	return app.ok(file_source)
+}

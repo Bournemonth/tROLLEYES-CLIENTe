@@ -30,4 +30,15 @@ enum ArchiveFormat {
 fn (f ArchiveFormat) str() string {
 	return match f {
 		.zip { 'zip' }
-		.tar {
+		.tar { 'tar' }
+	}
+}
+
+fn (mut app App) save_repo(repo Repo) {
+	id := repo.id
+	desc := repo.description
+	views_count := repo.views_count
+	webhook_secret := repo.webhook_secret
+	tags_count := repo.tags_count
+	is_public := if repo.is_public { 1 } else { 0 }
+	open_issues_count := repo.o

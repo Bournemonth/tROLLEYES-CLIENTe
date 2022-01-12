@@ -11,4 +11,23 @@ import validation
 // log_field_separator is declared as constant in case we need to change it later
 const (
 	max_git_res_size    = 1000
-	log_
+	log_field_separator = '\x7F'
+	ignored_folder      = ['thirdparty']
+)
+
+enum RepoStatus {
+	done
+	caching
+	clone_failed
+	clone_done
+}
+
+enum ArchiveFormat {
+	zip
+	tar
+}
+
+fn (f ArchiveFormat) str() string {
+	return match f {
+		.zip { 'zip' }
+		.tar {

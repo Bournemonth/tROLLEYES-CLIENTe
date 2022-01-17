@@ -49,4 +49,6 @@ fn (mut app App) save_repo(repo Repo) {
 	contributors_count := repo.contributors_count
 
 	sql app.db {
-		update Repo set desc
+		update Repo set description = desc, views_count = views_count, is_public = is_public,
+		webhook_secret = webhook_secret, tags_count = tags_count, open_issues_count = open_issues_count,
+		open_prs_count = open_prs_count, releases_count = releases_count, contributors_count = c

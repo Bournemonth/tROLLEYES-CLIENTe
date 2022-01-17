@@ -51,4 +51,11 @@ fn (mut app App) save_repo(repo Repo) {
 	sql app.db {
 		update Repo set description = desc, views_count = views_count, is_public = is_public,
 		webhook_secret = webhook_secret, tags_count = tags_count, open_issues_count = open_issues_count,
-		open_prs_count = open_prs_count, releases_count = releases_count, contributors_count = c
+		open_prs_count = open_prs_count, releases_count = releases_count, contributors_count = contributors_count,
+		stars_count = stars_count, branches_count = branches_count where id == id
+	}
+}
+
+fn (app App) find_repo_by_name_and_user_id(repo_name string, user_id int) Repo {
+	mut repo := sql app.db {
+		select from Repo where name == repo_name && user_id == 

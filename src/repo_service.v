@@ -58,4 +58,16 @@ fn (mut app App) save_repo(repo Repo) {
 
 fn (app App) find_repo_by_name_and_user_id(repo_name string, user_id int) Repo {
 	mut repo := sql app.db {
-		select from Repo where name == repo_name && user_id == 
+		select from Repo where name == repo_name && user_id == user_id limit 1
+	}
+
+	if repo.id > 0 {
+		repo.lang_stats = app.find_repo_lang_stats(repo.id)
+	}
+
+	return repo
+}
+
+fn (app App) find_repo_by_name_and_username(repo_name string, username string) Repo {
+	user := app.get_user_by_username(username) or { return Repo{} }
+

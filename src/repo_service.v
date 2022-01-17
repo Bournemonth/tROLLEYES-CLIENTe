@@ -41,4 +41,12 @@ fn (mut app App) save_repo(repo Repo) {
 	webhook_secret := repo.webhook_secret
 	tags_count := repo.tags_count
 	is_public := if repo.is_public { 1 } else { 0 }
-	open_issues_count := repo.o
+	open_issues_count := repo.open_issues_count
+	open_prs_count := repo.open_prs_count
+	branches_count := repo.branches_count
+	releases_count := repo.releases_count
+	stars_count := repo.stars_count
+	contributors_count := repo.contributors_count
+
+	sql app.db {
+		update Repo set desc

@@ -71,3 +71,14 @@ fn (app App) find_repo_by_name_and_user_id(repo_name string, user_id int) Repo {
 fn (app App) find_repo_by_name_and_username(repo_name string, username string) Repo {
 	user := app.get_user_by_username(username) or { return Repo{} }
 
+	return app.find_repo_by_name_and_user_id(repo_name, user.id)
+}
+
+fn (mut app App) get_count_user_repos(user_id int) int {
+	return sql app.db {
+		select count from Repo where user_id == user_id
+	}
+}
+
+fn (mut app App) find_user_repos(user_id int) []Repo {
+	return 

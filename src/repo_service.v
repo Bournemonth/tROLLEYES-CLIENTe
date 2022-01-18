@@ -92,4 +92,11 @@ fn (mut app App) find_user_public_repos(user_id int) []Repo {
 	}
 }
 
-fn (app App) search_public_repos(query 
+fn (app App) search_public_repos(query string) []Repo {
+	repo_rows, _ := app.db.exec('select id, name, user_id, description, stars_count from `Repo` where is_public is true and name like "%${query}%"')
+
+	mut repos := []Repo{}
+
+	for row in repo_rows {
+		user_id := row.vals[2].int()
+		user 

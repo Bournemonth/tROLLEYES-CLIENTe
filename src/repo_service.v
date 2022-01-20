@@ -99,4 +99,18 @@ fn (app App) search_public_repos(query string) []Repo {
 
 	for row in repo_rows {
 		user_id := row.vals[2].int()
-		user 
+		user := app.get_user_by_id(user_id) or { User{} }
+
+		repos << Repo{
+			id: row.vals[0].int()
+			name: row.vals[1]
+			user_name: user.username
+			description: row.vals[3]
+			stars_count: row.vals[4].int()
+		}
+	}
+
+	return repos
+}
+
+fn (app App) find_repo_by_id(repo_

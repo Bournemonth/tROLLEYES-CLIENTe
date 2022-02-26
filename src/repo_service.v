@@ -149,4 +149,12 @@ fn (mut app App) increment_file_views(file_id int) {
 	}
 }
 
-fn (mut app App) set_repo
+fn (mut app App) set_repo_webhook_secret(repo_id int, secret string) {
+	sql app.db {
+		update Repo set webhook_secret = secret where id == repo_id
+	}
+}
+
+fn (mut app App) increment_repo_issues(repo_id int) {
+	sql app.db {
+		update Repo set open_issues_count = open_issues_count + 1 where id == repo_

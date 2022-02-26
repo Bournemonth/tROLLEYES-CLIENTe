@@ -126,4 +126,15 @@ fn (app App) find_repo_by_id(repo_id int) Repo {
 }
 
 fn (mut app App) increment_repo_views(repo_id int) {
-	sql ap
+	sql app.db {
+		update Repo set views_count = views_count + 1 where id == repo_id
+	}
+}
+
+fn (mut app App) increment_repo_stars(repo_id int) {
+	sql app.db {
+		update Repo set stars_count = stars_count + 1 where id == repo_id
+	}
+}
+
+fn (mut app App) decrement_repo_s

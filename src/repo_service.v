@@ -113,4 +113,17 @@ fn (app App) search_public_repos(query string) []Repo {
 	return repos
 }
 
-fn (app App) find_repo_by_id(repo_
+fn (app App) find_repo_by_id(repo_id int) Repo {
+	mut repo := sql app.db {
+		select from Repo where id == repo_id
+	}
+
+	if repo.id > 0 {
+		repo.lang_stats = app.find_repo_lang_stats(repo.id)
+	}
+
+	return repo
+}
+
+fn (mut app App) increment_repo_views(repo_id int) {
+	sql ap

@@ -137,4 +137,16 @@ fn (mut app App) increment_repo_stars(repo_id int) {
 	}
 }
 
-fn (mut app App) decrement_repo_s
+fn (mut app App) decrement_repo_stars(repo_id int) {
+	sql app.db {
+		update Repo set stars_count = stars_count - 1 where id == repo_id
+	}
+}
+
+fn (mut app App) increment_file_views(file_id int) {
+	sql app.db {
+		update File set views_count = views_count + 1 where id == file_id
+	}
+}
+
+fn (mut app App) set_repo

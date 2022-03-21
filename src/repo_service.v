@@ -171,4 +171,15 @@ fn (mut app App) delete_repository(id int, path string, name string) {
 	sql app.db {
 		delete from Repo where id == id
 	}
-	app.info('Removed repo entry (${id}, ${na
+	app.info('Removed repo entry (${id}, ${name})')
+
+	sql app.db {
+		delete from Commit where repo_id == id
+	}
+
+	app.info('Removed repo commits (${id}, ${name})')
+	app.delete_repo_issues(id)
+	app.info('Removed repo issues (${id}, ${name})')
+
+	app.delete_repo_branches(id)
+	app.i

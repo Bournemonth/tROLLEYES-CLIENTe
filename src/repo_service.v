@@ -157,4 +157,18 @@ fn (mut app App) set_repo_webhook_secret(repo_id int, secret string) {
 
 fn (mut app App) increment_repo_issues(repo_id int) {
 	sql app.db {
-		update Repo set open_issues_count = open_issues_count + 1 where id == repo_
+		update Repo set open_issues_count = open_issues_count + 1 where id == repo_id
+	}
+}
+
+fn (mut app App) add_repo(repo Repo) {
+	sql app.db {
+		insert repo into Repo
+	}
+}
+
+fn (mut app App) delete_repository(id int, path string, name string) {
+	sql app.db {
+		delete from Repo where id == id
+	}
+	app.info('Removed repo entry (${id}, ${na

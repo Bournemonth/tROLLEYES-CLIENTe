@@ -182,4 +182,13 @@ fn (mut app App) delete_repository(id int, path string, name string) {
 	app.info('Removed repo issues (${id}, ${name})')
 
 	app.delete_repo_branches(id)
-	app.i
+	app.info('Removed repo branches (${id}, ${name})')
+
+	app.delete_repo_releases(id)
+	app.info('Removed repo releases (${id}, ${name})')
+
+	app.delete_repository_files(id)
+	app.info('Removed repo files (${id}, ${name})')
+
+	app.delete_repo_folder(path)
+	app.info('

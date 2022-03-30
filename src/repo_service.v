@@ -222,4 +222,11 @@ fn (mut app App) update_repo_from_fs(mut repo Repo) {
 	for branch_output in branches_output.split_into_lines() {
 		branch_name := git.parse_git_branch_output(branch_output)
 
-		app.up
+		app.update_repo_branch_from_fs(mut repo, branch_name)
+	}
+
+	repo.contributors_count = app.get_count_repo_contributors(repo_id)
+	repo.branches_count = app.get_count_repo_branches(repo_id)
+
+	// TODO: TEMPORARY - UNTIL WE GET PERSISTENT RELEASE INFO
+	for tag in app.get_al

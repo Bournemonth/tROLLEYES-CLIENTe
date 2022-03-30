@@ -191,4 +191,13 @@ fn (mut app App) delete_repository(id int, path string, name string) {
 	app.info('Removed repo files (${id}, ${name})')
 
 	app.delete_repo_folder(path)
-	app.info('
+	app.info('Removed repo folder (${id}, ${name})')
+}
+
+fn (mut app App) move_repo_to_user(repo_id int, user_id int, user_name string) {
+	sql app.db {
+		update Repo set user_id = user_id, user_name = user_name where id == repo_id
+	}
+}
+
+fn (mut app App) user_has_repo(user_id 

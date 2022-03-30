@@ -212,4 +212,14 @@ fn (mut app App) update_repo_from_fs(mut repo Repo) {
 
 	app.db.exec('BEGIN TRANSACTION')
 
-	repo.a
+	repo.analyse_lang(app)
+
+	app.info(repo.contributors_count.str())
+	app.fetch_branches(repo)
+
+	branches_output := repo.git('branch -a')
+
+	for branch_output in branches_output.split_into_lines() {
+		branch_name := git.parse_git_branch_output(branch_output)
+
+		app.up

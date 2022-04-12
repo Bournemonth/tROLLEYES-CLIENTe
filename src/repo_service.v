@@ -229,4 +229,15 @@ fn (mut app App) update_repo_from_fs(mut repo Repo) {
 	repo.branches_count = app.get_count_repo_branches(repo_id)
 
 	// TODO: TEMPORARY - UNTIL WE GET PERSISTENT RELEASE INFO
-	for tag in app.get_al
+	for tag in app.get_all_repo_tags(repo_id) {
+		app.add_release(tag.id, repo_id, time.unix(tag.created_at), tag.message)
+
+		repo.releases_count++
+	}
+
+	app.save_repo(repo)
+	app.db.exec('END TRANSACTION')
+	app.info('Repo updated')
+}
+
+fn (mut app App) update_repo_branch_from_fs(mut repo Repo, b

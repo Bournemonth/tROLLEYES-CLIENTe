@@ -256,4 +256,16 @@ fn (mut app App) update_repo_branch_from_fs(mut repo Repo, branch_name string) {
 		if args.len > 3 {
 			commit_hash := args[0]
 			commit_author_email := args[1]
-			commit_message := ar
+			commit_message := args[3]
+			commit_author := args[4]
+			mut commit_author_id := 0
+
+			commit_date := time.parse_rfc2822(args[2]) or {
+				app.info('Error: ${err}')
+				return
+			}
+
+			user := app.get_user_by_email(commit_author_email) or { User{} }
+
+			if user.id > 0 {
+				app.ad

@@ -240,4 +240,12 @@ fn (mut app App) update_repo_from_fs(mut repo Repo) {
 	app.info('Repo updated')
 }
 
-fn (mut app App) update_repo_branch_from_fs(mut repo Repo, b
+fn (mut app App) update_repo_branch_from_fs(mut repo Repo, branch_name string) {
+	repo_id := repo.id
+	branch := app.find_repo_branch_by_name(repo.id, branch_name)
+
+	if branch.id == 0 {
+		return
+	}
+
+	data := repo.git('--no-pager log ${branch_name} --abbrev-commit --abbrev=7 --pretty="%h${log_field_separator}

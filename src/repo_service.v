@@ -268,4 +268,16 @@ fn (mut app App) update_repo_branch_from_fs(mut repo Repo, branch_name string) {
 			user := app.get_user_by_email(commit_author_email) or { User{} }
 
 			if user.id > 0 {
-				app.ad
+				app.add_contributor(user.id, repo_id)
+
+				commit_author_id = user.id
+			}
+
+			app.add_commit_if_not_exist(repo_id, branch.id, commit_hash, commit_author,
+				commit_author_id, commit_message, int(commit_date.unix))
+		}
+	}
+}
+
+fn (mut app App) update_repo_from_remote(mut repo Repo) {
+	repo_id

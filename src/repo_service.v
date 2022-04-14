@@ -280,4 +280,17 @@ fn (mut app App) update_repo_branch_from_fs(mut repo Repo, branch_name string) {
 }
 
 fn (mut app App) update_repo_from_remote(mut repo Repo) {
-	repo_id
+	repo_id := repo.id
+
+	repo.git('fetch --all')
+	repo.git('pull --all')
+
+	app.db.exec('BEGIN TRANSACTION')
+
+	repo.analyse_lang(app)
+
+	app.info(repo.contributors_count.str())
+	app.fetch_branches(repo)
+	app.fetch_tags(repo)
+
+	branches_output := repo.git('branch -a')

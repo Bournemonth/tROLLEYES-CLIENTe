@@ -294,3 +294,12 @@ fn (mut app App) update_repo_from_remote(mut repo Repo) {
 	app.fetch_tags(repo)
 
 	branches_output := repo.git('branch -a')
+
+	for branch_output in branches_output.split_into_lines() {
+		branch_name := git.parse_git_branch_output(branch_output)
+
+		app.update_repo_branch_from_fs(mut repo, branch_name)
+	}
+
+	for tag in app.get_all_repo_tags(repo_id) {
+		app.add_r

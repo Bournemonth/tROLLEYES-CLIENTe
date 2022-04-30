@@ -302,4 +302,12 @@ fn (mut app App) update_repo_from_remote(mut repo Repo) {
 	}
 
 	for tag in app.get_all_repo_tags(repo_id) {
-		app.add_r
+		app.add_release(tag.id, repo_id, time.unix(tag.created_at), tag.message)
+
+		repo.releases_count++
+	}
+
+	repo.contributors_count = app.get_count_repo_contributors(repo_id)
+	repo.branches_count = app.get_count_repo_branches(repo_id)
+
+	

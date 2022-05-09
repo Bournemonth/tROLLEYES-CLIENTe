@@ -326,4 +326,14 @@ fn (mut app App) update_repo_branch_data(mut repo Repo, branch_name string) {
 	data := repo.git('--no-pager log ${branch_name} --abbrev-commit --abbrev=7 --pretty="%h${log_field_separator}%aE${log_field_separator}%cD${log_field_separator}%s${log_field_separator}%aN"')
 
 	for line in data.split_into_lines() {
-		args := line.split(log_field_separator
+		args := line.split(log_field_separator)
+
+		if args.len > 3 {
+			commit_hash := args[0]
+			commit_author_email := args[1]
+			commit_message := args[3]
+			commit_author := args[4]
+			mut commit_author_id := 0
+
+			commit_date := time.parse_rfc2822(args[2]) or {
+				app.info('Error: ${er

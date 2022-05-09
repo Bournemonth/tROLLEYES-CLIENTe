@@ -323,4 +323,7 @@ fn (mut app App) update_repo_branch_data(mut repo Repo, branch_name string) {
 		return
 	}
 
-	data :
+	data := repo.git('--no-pager log ${branch_name} --abbrev-commit --abbrev=7 --pretty="%h${log_field_separator}%aE${log_field_separator}%cD${log_field_separator}%s${log_field_separator}%aN"')
+
+	for line in data.split_into_lines() {
+		args := line.split(log_field_separator

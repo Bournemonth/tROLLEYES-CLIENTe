@@ -310,4 +310,17 @@ fn (mut app App) update_repo_from_remote(mut repo Repo) {
 	repo.contributors_count = app.get_count_repo_contributors(repo_id)
 	repo.branches_count = app.get_count_repo_branches(repo_id)
 
-	
+	app.save_repo(repo)
+	app.db.exec('END TRANSACTION')
+	app.info('Repo updated')
+}
+
+fn (mut app App) update_repo_branch_data(mut repo Repo, branch_name string) {
+	repo_id := repo.id
+	branch := app.find_repo_branch_by_name(repo.id, branch_name)
+
+	if branch.id == 0 {
+		return
+	}
+
+	data :

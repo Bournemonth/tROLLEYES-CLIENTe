@@ -336,4 +336,16 @@ fn (mut app App) update_repo_branch_data(mut repo Repo, branch_name string) {
 			mut commit_author_id := 0
 
 			commit_date := time.parse_rfc2822(args[2]) or {
-				app.info('Error: ${er
+				app.info('Error: ${err}')
+				return
+			}
+
+			user := app.get_user_by_email(commit_author_email) or { User{} }
+
+			if user.id > 0 {
+				app.add_contributor(user.id, repo_id)
+
+				commit_author_id = user.id
+			}
+
+			app.add_commit_if_not_exist(repo_id, b

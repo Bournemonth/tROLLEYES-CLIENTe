@@ -348,4 +348,12 @@ fn (mut app App) update_repo_branch_data(mut repo Repo, branch_name string) {
 				commit_author_id = user.id
 			}
 
-			app.add_commit_if_not_exist(repo_id, b
+			app.add_commit_if_not_exist(repo_id, branch.id, commit_hash, commit_author,
+				commit_author_id, commit_message, int(commit_date.unix))
+		}
+	}
+}
+
+// TODO: tags and other stuff
+fn (mut app App) update_repo_after_push(repo_id int, branch_name string) {
+	mut repo := app.find_repo_by_id

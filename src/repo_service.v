@@ -370,4 +370,10 @@ fn (r &Repo) analyse_lang(app &App) {
 	file_paths := r.get_all_file_paths()
 
 	mut all_size := 0
-	mut lang_stats := map[string]int
+	mut lang_stats := map[string]int{}
+	mut langs := map[string]highlight.Lang{}
+
+	for file_path in file_paths {
+		lang := highlight.extension_to_lang(file_path.split('.').last()) or { continue }
+		file_content := r.read_file(r.primary_branch, file_path)
+		lines := file_content.split_into_lines

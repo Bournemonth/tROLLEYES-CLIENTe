@@ -356,4 +356,18 @@ fn (mut app App) update_repo_branch_data(mut repo Repo, branch_name string) {
 
 // TODO: tags and other stuff
 fn (mut app App) update_repo_after_push(repo_id int, branch_name string) {
-	mut repo := app.find_repo_by_id
+	mut repo := app.find_repo_by_id(repo_id)
+
+	if repo.id == 0 {
+		return
+	}
+
+	app.update_repo_from_fs(mut repo)
+	app.delete_repository_files_in_branch(repo_id, branch_name)
+}
+
+fn (r &Repo) analyse_lang(app &App) {
+	file_paths := r.get_all_file_paths()
+
+	mut all_size := 0
+	mut lang_stats := map[string]int

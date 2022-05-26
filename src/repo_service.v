@@ -387,4 +387,19 @@ fn (r &Repo) analyse_lang(app &App) {
 		}
 
 		lang_stats[lang.name] = lang_stats[lang.name] + size
-		all_size +
+		all_size += size
+	}
+
+	mut d_lang_stats := []LangStat{}
+	mut tmp_a := []int{}
+
+	for lang, amount in lang_stats {
+		// skip 0 lines of code
+		if amount == 0 {
+			continue
+		}
+
+		mut tmp := f32(amount) / f32(all_size)
+		tmp *= 1000
+		pct := int(tmp)
+		if p

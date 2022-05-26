@@ -376,4 +376,15 @@ fn (r &Repo) analyse_lang(app &App) {
 	for file_path in file_paths {
 		lang := highlight.extension_to_lang(file_path.split('.').last()) or { continue }
 		file_content := r.read_file(r.primary_branch, file_path)
-		lines := file_content.split_into_lines
+		lines := file_content.split_into_lines()
+		size := calc_lines_of_code(lines, lang)
+
+		if lang.name !in lang_stats {
+			lang_stats[lang.name] = 0
+		}
+		if lang.name !in langs {
+			langs[lang.name] = lang
+		}
+
+		lang_stats[lang.name] = lang_stats[lang.name] + size
+		all_size +

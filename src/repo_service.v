@@ -402,4 +402,22 @@ fn (r &Repo) analyse_lang(app &App) {
 		mut tmp := f32(amount) / f32(all_size)
 		tmp *= 1000
 		pct := int(tmp)
-		if p
+		if pct !in tmp_a {
+			tmp_a << pct
+		}
+		lang_data := langs[lang]
+		d_lang_stats << LangStat{
+			repo_id: r.id
+			name: lang_data.name
+			pct: pct
+			color: lang_data.color
+			lines_count: amount
+		}
+	}
+
+	tmp_a.sort()
+	tmp_a = tmp_a.reverse()
+
+	mut tmp_stats := []LangStat{}
+
+	for pct in tmp_a 

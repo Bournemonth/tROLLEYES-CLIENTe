@@ -420,4 +420,18 @@ fn (r &Repo) analyse_lang(app &App) {
 
 	mut tmp_stats := []LangStat{}
 
-	for pct in tmp_a 
+	for pct in tmp_a {
+		all_with_ptc := r.lang_stats.filter(it.pct == pct)
+		for lang in all_with_ptc {
+			tmp_stats << lang
+		}
+	}
+
+	app.remove_repo_lang_stats(r.id)
+
+	for lang_stat in d_lang_stats {
+		app.add_lang_stat(lang_stat)
+	}
+}
+
+fn calc_lines_of_code(lines []string, lang hig

@@ -434,4 +434,16 @@ fn (r &Repo) analyse_lang(app &App) {
 	}
 }
 
-fn calc_lines_of_code(lines []string, lang hig
+fn calc_lines_of_code(lines []string, lang highlight.Lang) int {
+	mut size := 0
+	lcomment := lang.line_comments
+	mut mlcomment_start := ''
+	mut mlcomment_end := ''
+	if lang.mline_comments.len >= 2 {
+		mlcomment_start = lang.mline_comments[0]
+		mlcomment_end = lang.mline_comments[1]
+	}
+	mut in_comment := false
+	for line in lines {
+		tmp_line := line.trim_space()
+		i

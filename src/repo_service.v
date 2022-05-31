@@ -446,4 +446,13 @@ fn calc_lines_of_code(lines []string, lang highlight.Lang) int {
 	mut in_comment := false
 	for line in lines {
 		tmp_line := line.trim_space()
-		i
+		if tmp_line.len > 0 { // Empty line ignored
+			if tmp_line.contains(mlcomment_start) {
+				in_comment = true
+				if tmp_line.starts_with(mlcomment_start) {
+					continue
+				}
+			}
+			if tmp_line.contains(mlcomment_end) {
+				if in_comment {
+					in_comment = fal

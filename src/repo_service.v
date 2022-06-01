@@ -472,4 +472,13 @@ fn calc_lines_of_code(lines []string, lang highlight.Lang) int {
 			size++
 		}
 	}
-	retur
+	return size
+}
+
+fn (r &Repo) get_all_file_paths() []string {
+	ls_output := r.git('ls-tree -r ${r.primary_branch} --name-only')
+	mut file_paths := []string{}
+
+	for file_path in ls_output.split_into_lines() {
+		path_parts := file_path.split('/')
+		has_ignored_folders := path_parts.a

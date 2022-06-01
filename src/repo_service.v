@@ -481,4 +481,18 @@ fn (r &Repo) get_all_file_paths() []string {
 
 	for file_path in ls_output.split_into_lines() {
 		path_parts := file_path.split('/')
-		has_ignored_folders := path_parts.a
+		has_ignored_folders := path_parts.any(ignored_folder.contains(it))
+
+		if has_ignored_folders {
+			continue
+		}
+
+		file_paths << file_path
+	}
+
+	return file_paths
+}
+
+// TODO: return ?string
+fn (r &Repo) git(command string) string {
+	if command.contains('&') || command.contains(';'

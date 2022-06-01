@@ -455,4 +455,21 @@ fn calc_lines_of_code(lines []string, lang highlight.Lang) int {
 			}
 			if tmp_line.contains(mlcomment_end) {
 				if in_comment {
-					in_comment = fal
+					in_comment = false
+				}
+				if tmp_line.ends_with(mlcomment_end) {
+					continue
+				}
+			}
+			if in_comment {
+				continue
+			}
+			if tmp_line.contains(lcomment) {
+				if tmp_line.starts_with(lcomment) {
+					continue
+				}
+			}
+			size++
+		}
+	}
+	retur

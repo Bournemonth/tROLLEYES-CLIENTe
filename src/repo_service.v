@@ -495,4 +495,13 @@ fn (r &Repo) get_all_file_paths() []string {
 
 // TODO: return ?string
 fn (r &Repo) git(command string) string {
-	if command.contains('&') || command.contains(';'
+	if command.contains('&') || command.contains(';') {
+		return ''
+	}
+
+	command_with_path := '-C ${r.git_dir} ${command}'
+
+	command_result := os.execute('git ${command_with_path}')
+	command_exit_code := command_result.exit_code
+	if command_exit_code != 0 {
+		println('git error ${command_

@@ -504,4 +504,14 @@ fn (r &Repo) git(command string) string {
 	command_result := os.execute('git ${command_with_path}')
 	command_exit_code := command_result.exit_code
 	if command_exit_code != 0 {
-		println('git error ${command_
+		println('git error ${command_with_path} with ${command_exit_code} exit code out=${command_result.output}')
+
+		return ''
+	}
+
+	return command_result.output.trim_space()
+}
+
+fn (r &Repo) parse_ls(ls_line string, branch string) ?File {
+	ls_line_parts := ls_line.fields()
+	if ls_line_parts.len < 4 {

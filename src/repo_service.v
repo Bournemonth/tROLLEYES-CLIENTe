@@ -515,3 +515,14 @@ fn (r &Repo) git(command string) string {
 fn (r &Repo) parse_ls(ls_line string, branch string) ?File {
 	ls_line_parts := ls_line.fields()
 	if ls_line_parts.len < 4 {
+		return none
+	}
+
+	item_type := ls_line_parts[1]
+	item_size := ls_line_parts[3]
+	item_path := ls_line_parts[4]
+	item_hash := r.git('log ${branch} -n 1 --format="%h" -- ${item_path}')
+
+	item_name := item_path.after('/')
+	if item_name == '' {
+		re

@@ -541,3 +541,12 @@ fn (r &Repo) parse_ls(ls_line string, branch string) ?File {
 		name: item_name
 		parent_path: parent_path
 		repo_id: r.id
+		last_hash: item_hash
+		branch: branch
+		is_dir: item_type == 'tree'
+		size: if item_type == 'blob' { item_size.int() } else { 0 }
+	}
+}
+
+// Fetches all files via `git ls-tree` and saves them in db
+fn (mut app App) cache_repository_items(mut r Repo, branch str

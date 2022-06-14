@@ -525,4 +525,19 @@ fn (r &Repo) parse_ls(ls_line string, branch string) ?File {
 
 	item_name := item_path.after('/')
 	if item_name == '' {
-		re
+		return none
+	}
+
+	mut parent_path := os.dir(item_path)
+	if parent_path == item_name {
+		parent_path = ''
+	}
+
+	if item_name.contains('"\\') {
+		// Unqoute octal UTF-8 strings
+	}
+
+	return File{
+		name: item_name
+		parent_path: parent_path
+		repo_id: r.id

@@ -549,4 +549,18 @@ fn (r &Repo) parse_ls(ls_line string, branch string) ?File {
 }
 
 // Fetches all files via `git ls-tree` and saves them in db
-fn (mut app App) cache_repository_items(mut r Repo, branch str
+fn (mut app App) cache_repository_items(mut r Repo, branch string, path string) []File {
+	if r.status == .caching {
+		app.info('`${r.name}` is being cached already')
+		return []
+	}
+
+	mut repository_ls := ''
+	if path == '.' {
+		r.status = .caching
+
+		defer {
+			r.status = .done
+		}
+	} else {
+		directory_path := if

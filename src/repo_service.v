@@ -563,4 +563,9 @@ fn (mut app App) cache_repository_items(mut r Repo, branch string, path string) 
 			r.status = .done
 		}
 	} else {
-		directory_path := if
+		directory_path := if path == '' { path } else { '${path}/' }
+		format := '%(objectmode) %(objecttype) %(objectname) %(objectsize) %(path)'
+		repository_ls = r.git('ls-tree --full-name --format="${format}" ${branch} ${directory_path}')
+	}
+
+	// mode type name path

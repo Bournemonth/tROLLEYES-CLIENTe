@@ -569,3 +569,14 @@ fn (mut app App) cache_repository_items(mut r Repo, branch string, path string) 
 	}
 
 	// mode type name path
+	item_info_lines := repository_ls.split('\n')
+
+	mut dirs := []File{} // dirs first
+	mut files := []File{}
+
+	app.db.exec('BEGIN TRANSACTION')
+
+	for item_info in item_info_lines {
+		is_item_info_empty := validation.is_string_empty(item_info)
+
+		if is_item_info_empty 

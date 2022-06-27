@@ -579,4 +579,22 @@ fn (mut app App) cache_repository_items(mut r Repo, branch string, path string) 
 	for item_info in item_info_lines {
 		is_item_info_empty := validation.is_string_empty(item_info)
 
-		if is_item_info_empty 
+		if is_item_info_empty {
+			continue
+		}
+
+		file := r.parse_ls(item_info, branch) or {
+			app.warn('failed to parse ${item_info}')
+			continue
+		}
+
+		if file.is_dir {
+			dirs << file
+
+			app.add_file(file)
+		} else {
+			files << file
+		}
+	}
+
+	dirs <<

@@ -622,4 +622,10 @@ fn (mut app App) slow_fetch_files_info(mut repo Repo, branch string, path string
 	}
 }
 
-fn (r Repo) get_last_bra
+fn (r Repo) get_last_branch_commit_hash(branch_name string) string {
+	git_result := os.execute('git -C ${r.git_dir} log -n 1 ${branch_name} --pretty=format:"%h"')
+	git_output := git_result.output
+
+	if git_result.exit_code != 0 {
+		eprintln('git log error: ${git_output}')
+	}

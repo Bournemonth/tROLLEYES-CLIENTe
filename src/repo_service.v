@@ -609,4 +609,17 @@ fn (mut app App) cache_repository_items(mut r Repo, branch string, path string) 
 
 // fetches last message and last time for each file
 // this is slow, so it's run in the background thread
-fn (mut app App) slow_fetch_files_info(mut repo Repo, bra
+fn (mut app App) slow_fetch_files_info(mut repo Repo, branch string, path string) {
+	files := app.find_repository_items(repo.id, branch, path)
+
+	for i in 0 .. files.len {
+		if files[i].last_msg != '' {
+			app.warn('skipping ${files[i].name}')
+			continue
+		}
+
+		app.fetch_file_info(repo, files[i])
+	}
+}
+
+fn (r Repo) get_last_bra

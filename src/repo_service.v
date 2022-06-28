@@ -597,4 +597,16 @@ fn (mut app App) cache_repository_items(mut r Repo, branch string, path string) 
 		}
 	}
 
-	dirs <<
+	dirs << files
+	for file in files {
+		app.add_file(file)
+	}
+
+	app.db.exec('END TRANSACTION')
+
+	return dirs
+}
+
+// fetches last message and last time for each file
+// this is slow, so it's run in the background thread
+fn (mut app App) slow_fetch_files_info(mut repo Repo, bra

@@ -646,4 +646,18 @@ fn (r Repo) git_advertise(service string) string {
 
 fn (r Repo) archive_tag(tag string, path string, format ArchiveFormat) {
 	// TODO: check tag name before running command
-	r.git('archive ${tag} --format=${format} --output="${path
+	r.git('archive ${tag} --format=${format} --output="${path}"')
+}
+
+fn (r Repo) get_commit_patch(commit_hash string) ?string {
+	patch := r.git('format-patch --stdout -1 ${commit_hash}')
+
+	if patch == '' {
+		return none
+	}
+
+	return patch
+}
+
+fn (r Repo) git_smart(service string, input string) string {
+	git_pa

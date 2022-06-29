@@ -629,3 +629,13 @@ fn (r Repo) get_last_branch_commit_hash(branch_name string) string {
 	if git_result.exit_code != 0 {
 		eprintln('git log error: ${git_output}')
 	}
+
+	return git_output
+}
+
+fn (r Repo) git_advertise(service string) string {
+	git_result := os.execute('git ${service} --stateless-rpc --advertise-refs ${r.git_dir}')
+	git_output := git_result.output
+
+	if git_result.exit_code != 0 {
+		eprintln('gi

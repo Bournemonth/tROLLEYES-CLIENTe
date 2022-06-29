@@ -638,4 +638,12 @@ fn (r Repo) git_advertise(service string) string {
 	git_output := git_result.output
 
 	if git_result.exit_code != 0 {
-		eprintln('gi
+		eprintln('git ${service} error: ${git_output}')
+	}
+
+	return git_output
+}
+
+fn (r Repo) archive_tag(tag string, path string, format ArchiveFormat) {
+	// TODO: check tag name before running command
+	r.git('archive ${tag} --format=${format} --output="${path

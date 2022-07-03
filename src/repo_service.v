@@ -660,4 +660,12 @@ fn (r Repo) get_commit_patch(commit_hash string) ?string {
 }
 
 fn (r Repo) git_smart(service string, input string) string {
-	git_pa
+	git_path := git.get_git_executable_path() or { 'git' }
+	real_repository_path := os.real_path(r.git_dir)
+
+	mut process := os.new_process(git_path)
+	process.set_args([service, '--stateless-rpc', real_repository_path])
+
+	process.set_redirect_stdio()
+	process.run()
+	proces

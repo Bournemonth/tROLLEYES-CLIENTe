@@ -668,4 +668,21 @@ fn (r Repo) git_smart(service string, input string) string {
 
 	process.set_redirect_stdio()
 	process.run()
-	proces
+	process.stdin_write(input)
+	process.stdin_write('\n')
+
+	output := process.stdout_slurp()
+	errors := process.stderr_slurp()
+
+	process.wait()
+	process.close()
+
+	if errors.len > 0 {
+		eprintln('git ${service} error: ${errors}')
+
+		return ''
+	}
+
+	return output
+}
+

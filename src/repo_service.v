@@ -686,3 +686,13 @@ fn (r Repo) git_smart(service string, input string) string {
 	return output
 }
 
+fn (mut app App) generate_clone_url(repo Repo) string {
+	hostname := app.config.hostname
+	username := repo.user_name
+	repo_name := repo.name
+
+	return 'https://${hostname}/${username}/${repo_name}.git'
+}
+
+fn first_line(s string) string {
+	pos := s.index('\n') or { 

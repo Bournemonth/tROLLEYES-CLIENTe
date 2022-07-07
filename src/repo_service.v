@@ -695,4 +695,14 @@ fn (mut app App) generate_clone_url(repo Repo) string {
 }
 
 fn first_line(s string) string {
-	pos := s.index('\n') or { 
+	pos := s.index('\n') or { return s }
+	return s[..pos]
+}
+
+fn (mut app App) fetch_file_info(r &Repo, file &File) {
+	logs := r.git('log -n1 --format=%B___%at___%H___%an ${file.branch} -- ${file.full_path()}')
+	vals := logs.split('___')
+	if vals.len < 3 {
+		return
+	}
+	last_msg :

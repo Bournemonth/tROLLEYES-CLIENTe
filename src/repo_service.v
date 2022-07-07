@@ -716,4 +716,14 @@ fn (mut app App) fetch_file_info(r &Repo, file &File) {
 
 fn (mut app App) update_repo_primary_branch(repo_id int, branch string) {
 	sql app.db {
-	
+		update Repo set primary_branch = branch where id == repo_id
+	}
+}
+
+fn (mut r Repo) clone() {
+	clone_result := os.execute('git clone --bare "${r.clone_url}" ${r.git_dir}')
+	close_exit_code := clone_result.exit_code
+
+	if close_exit_code != 0 {
+		r.status = .clone_failed
+		pr

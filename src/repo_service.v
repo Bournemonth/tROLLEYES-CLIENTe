@@ -705,4 +705,15 @@ fn (mut app App) fetch_file_info(r &Repo, file &File) {
 	if vals.len < 3 {
 		return
 	}
-	last_msg :
+	last_msg := first_line(vals[0])
+	last_time := vals[1].int() // last_hash
+
+	file_id := file.id
+	sql app.db {
+		update File set last_msg = last_msg, last_time = last_time where id == file_id
+	}
+}
+
+fn (mut app App) update_repo_primary_branch(repo_id int, branch string) {
+	sql app.db {
+	

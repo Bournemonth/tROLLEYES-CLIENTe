@@ -739,4 +739,13 @@ fn (r &Repo) read_file(branch string, path string) string {
 	return r.git('--no-pager show ${branch}:${valid_path}')
 }
 
-fn find_readme_fil
+fn find_readme_file(items []File) ?File {
+	files := items.filter(it.name.to_lower().starts_with('readme.') && it.name.split('.').len == 2
+		&& !it.is_dir)
+
+	if files.len == 0 {
+		return none
+	}
+
+	// firstly search markdown files
+	readme_md_files := files.filter(it.name.to_lo

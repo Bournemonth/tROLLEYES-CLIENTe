@@ -726,4 +726,17 @@ fn (mut r Repo) clone() {
 
 	if close_exit_code != 0 {
 		r.status = .clone_failed
-		pr
+		println('git clone failed with exit code ${close_exit_code}')
+		return
+	}
+
+	r.status = .clone_done
+}
+
+fn (r &Repo) read_file(branch string, path string) string {
+	valid_path := path.trim_string_left('/')
+
+	return r.git('--no-pager show ${branch}:${valid_path}')
+}
+
+fn find_readme_fil

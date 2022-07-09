@@ -776,3 +776,26 @@ fn find_license_file(items []File) ?File {
 
 fn (app App) has_user_repo_read_access(user_id int, repo_id int) bool {
 	if !app.logged_in {
+		return false
+	}
+
+	repo := app.find_repo_by_id(repo_id)
+
+	if repo.id == 0 {
+		return false
+	}
+
+	if repo.is_public {
+		return true
+	}
+
+	is_repo_owner := repo.user_id == user_id
+
+	if is_repo_owner {
+		return true
+	}
+
+	return false
+}
+
+fn (app App) has_user_repo_read_acc

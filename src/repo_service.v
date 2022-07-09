@@ -748,4 +748,18 @@ fn find_readme_file(items []File) ?File {
 	}
 
 	// firstly search markdown files
-	readme_md_files := files.filter(it.name.to_lo
+	readme_md_files := files.filter(it.name.to_lower().ends_with('.md'))
+
+	if readme_md_files.len > 0 {
+		return readme_md_files.first()
+	}
+
+	// and then txt files
+	readme_txt_files := files.filter(it.name.to_lower().ends_with('.txt'))
+
+	if readme_txt_files.len > 0 {
+		return readme_txt_files.first()
+	}
+
+	return none
+}

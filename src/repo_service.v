@@ -763,3 +763,16 @@ fn find_readme_file(items []File) ?File {
 
 	return none
 }
+
+fn find_license_file(items []File) ?File {
+	files := items.filter(it.name.to_lower() == 'license')
+
+	if files.len == 0 {
+		return none
+	}
+
+	return files[0]
+}
+
+fn (app App) has_user_repo_read_access(user_id int, repo_id int) bool {
+	if !app.logged_in {

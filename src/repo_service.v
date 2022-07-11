@@ -802,4 +802,12 @@ fn (app App) has_user_repo_read_access_by_repo_name(user_id int, repo_owner_name
 	user := app.get_user_by_username(repo_owner_name) or { return false }
 	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
 
-	return app.has_user_repo_read_access(user_id, repo.i
+	return app.has_user_repo_read_access(user_id, repo.id)
+}
+
+fn (app App) check_repo_owner(username string, repo_name string) bool {
+	user := app.get_user_by_username(username) or { return false }
+	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
+
+	return repo.user_id == user.id
+}

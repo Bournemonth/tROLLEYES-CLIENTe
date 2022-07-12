@@ -29,3 +29,15 @@ fn (r &Repo) format_open_prs_count() vweb.RawHtml {
 fn (r &Repo) format_open_issues_count() vweb.RawHtml {
 	return get_declension_form(r.open_issues_count, 'Issue', 'Issues')
 }
+
+fn (r &Repo) format_contributors_count() vweb.RawHtml {
+	return get_declension_form(r.contributors_count, 'Contributor', 'Contributors')
+}
+
+fn (r &Repo) format_topics_count() vweb.RawHtml {
+	return get_declension_form(r.topics_count, 'Discussion', 'discussions')
+}
+
+fn (r &Repo) format_releases_count() vweb.RawHtml {
+	return get_declension_form(r.releases_count, 'Release', 'Releases')
+}

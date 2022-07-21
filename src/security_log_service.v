@@ -18,3 +18,10 @@ fn (app &App) get_all_user_security_logs(user_id int) []SecurityLog {
 	mut logs := sql app.db {
 		select from SecurityLog where user_id == user_id order by id desc
 	}
+
+	for i, log in logs {
+		logs[i].kind = unsafe { SecurityLogKind(log.kind_id) }
+	}
+
+	return logs
+}

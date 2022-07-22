@@ -17,4 +17,13 @@ fn (mut app App) update_settings(oauth_client_id string, oauth_client_secret str
 		old_settings.oauth_client_id
 	}
 
-	git
+	github_oauth_client_secret := if oauth_client_secret != '' {
+		oauth_client_secret
+	} else {
+		old_settings.oauth_client_secret
+	}
+
+	if old_settings.id == 0 {
+		settings := Settings{
+			oauth_client_id: github_oauth_client_id
+			oauth_client_secret: github_oauth_cli

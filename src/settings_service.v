@@ -26,4 +26,16 @@ fn (mut app App) update_settings(oauth_client_id string, oauth_client_secret str
 	if old_settings.id == 0 {
 		settings := Settings{
 			oauth_client_id: github_oauth_client_id
-			oauth_client_secret: github_oauth_cli
+			oauth_client_secret: github_oauth_client_secret
+		}
+
+		sql app.db {
+			insert settings into Settings
+		}
+	} else {
+		sql app.db {
+			update Settings set oauth_client_id = github_oauth_client_id, oauth_client_secret = github_oauth_client_secret
+			where id == old_settings.id
+		}
+	}
+}

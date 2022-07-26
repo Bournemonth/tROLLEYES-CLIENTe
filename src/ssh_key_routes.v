@@ -70,3 +70,8 @@ pub fn (mut app App) user_ssh_keys_new(username string) vweb.Result {
 	is_users_settings := username == app.user.username
 
 	if !app.logged_in || !is_users_settings {
+		return app.redirect_to_index()
+	}
+
+	return $vweb.html()
+}

@@ -11,4 +11,17 @@ fn (mut app App) add_ssh_key(user_id int, title string, key string) ? {
 		return error('SSH Key already exists')
 	}
 
-	new_ssh_key 
+	new_ssh_key := SshKey{
+		user_id: user_id
+		title: title
+		key: key
+		created_at: time.now()
+	}
+
+	sql app.db {
+		insert new_ssh_key into SshKey
+	}
+}
+
+fn (mut app App) find_ssh_keys(user_id int) []SshKey {
+	return sql ap

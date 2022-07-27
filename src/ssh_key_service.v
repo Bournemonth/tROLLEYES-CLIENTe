@@ -24,4 +24,13 @@ fn (mut app App) add_ssh_key(user_id int, title string, key string) ? {
 }
 
 fn (mut app App) find_ssh_keys(user_id int) []SshKey {
-	return sql ap
+	return sql app.db {
+		select from SshKey where user_id == user_id
+	}
+}
+
+fn (mut app App) remove_ssh_key(user_id int, id int) {
+	sql app.db {
+		delete from SshKey where id == id && user_id == user_id
+	}
+}

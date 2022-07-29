@@ -29,4 +29,15 @@ fn (mut app App) find_user_starred_repos(user_id int) []Repo {
 }
 
 fn (mut app App) toggle_repo_star(repo_id int, user_id int) {
-	is_starred := app.check_repo_starred(
+	is_starred := app.check_repo_starred(repo_id, user_id)
+
+	if is_starred {
+		app.remove_star(repo_id, user_id)
+		app.decrement_repo_stars(repo_id)
+	} else {
+		app.add_star(repo_id, user_id)
+		app.increment_repo_stars(repo_id)
+	}
+}
+
+fn (mut app App) check_repo_starred(repo_id int, user_id int

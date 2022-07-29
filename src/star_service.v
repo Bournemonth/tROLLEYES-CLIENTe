@@ -40,4 +40,14 @@ fn (mut app App) toggle_repo_star(repo_id int, user_id int) {
 	}
 }
 
-fn (mut app App) check_repo_starred(repo_id int, user_id int
+fn (mut app App) check_repo_starred(repo_id int, user_id int) bool {
+	star := sql app.db {
+		select from Star where repo_id == repo_id && user_id == user_id limit 1
+	}
+
+	return star.id != 0
+}
+
+fn (mut app App) remove_star(repo_id int, user_id int) {
+	sql app.db {
+		delete from Star where repo_i

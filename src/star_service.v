@@ -50,4 +50,6 @@ fn (mut app App) check_repo_starred(repo_id int, user_id int) bool {
 
 fn (mut app App) remove_star(repo_id int, user_id int) {
 	sql app.db {
-		delete from Star where repo_i
+		delete from Star where repo_id == repo_id && user_id == user_id
+	}
+}

@@ -1,2 +1,18 @@
 .data {
-	display: f
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.data-box {
+	flex-basis: 100%;
+	display: none;
+	justify-content: space-between;
+}
+
+.data-show-user {
+	cursor: pointer;
+	background: none;
+	color: $black;
+	border: 1px solid 

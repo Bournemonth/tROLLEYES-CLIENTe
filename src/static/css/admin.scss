@@ -26,4 +26,24 @@
 }
 
 .data-show-user:hover {
-	border: 1px soli
+	border: 1px solid #0366d6;
+	background-color: #1a7be9;
+	color: $white;
+}
+
+.data-emails {
+	flex-basis: 35%;
+}
+
+.data-emails > ul {
+	min-height: 125px;
+	max-height: 250px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.data-email {
+	list-style: none;
+}
+
+.data-u

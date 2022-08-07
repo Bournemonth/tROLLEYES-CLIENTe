@@ -15,4 +15,15 @@
 	cursor: pointer;
 	background: none;
 	color: $black;
-	border: 1px solid 
+	border: 1px solid $gray;
+	padding: 5px 8px;
+	border-radius: $small-radius;
+	transition: background-color 0.07s, border-color 0.07s, color 0.07s;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.data-show-user:hover {
+	border: 1px soli

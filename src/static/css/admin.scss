@@ -46,4 +46,25 @@
 	list-style: none;
 }
 
-.data-u
+.data-user {
+	display: flex;
+	align-items: center;
+}
+
+.data-user > div {
+	margin-right: 5px;
+}
+
+.user-settings {
+	width: 60%;
+	display: flex;
+	flex-direction: column;
+}
+
+.user-settings > input {
+	float: right;
+	align-self: flex-end;
+}
+
+.data-options {
+	flex-basis

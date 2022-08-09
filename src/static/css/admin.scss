@@ -67,4 +67,24 @@
 }
 
 .data-options {
-	flex-basis
+	flex-basis: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.data-options > div {
+	margin-bottom: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.data-options > div > label {
+	margin-left: 5px;
+}
+
+.settings {
+	margin: 0 auto;
+}
+
+::placeholder {
+	color: r

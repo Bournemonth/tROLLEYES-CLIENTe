@@ -9,4 +9,26 @@
 	border: 1px solid #dfdfdf;
 	border-radius: 3px;
 	padding: 10px;
-	margi
+	margin-top: 10px;
+}
+
+.comment-post-form {
+	display: grid;
+}
+
+.comment-post-submit {
+	margin-top: 5px;
+}
+
+.comment {
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.form .input-comment {
+	margin-top: 10px;
+}
+
+.avatar-with-user-info {
+	display: flex;
+	align-item

@@ -1,0 +1,119 @@
+
+$mob-max: 1000px;
+$link-color: #4078c0;
+$gray: #dfdfdf;
+$gray-light: #f3f3f3;
+$gray-dark: #777; // 888
+$font-size: 14px;
+$black: #24292e;
+$white: #ffffff;
+$header-height: 50px;
+$medium-radius: 5px;
+$small-radius: 3px;
+
+@mixin mobile {
+	@media (max-width: $mob-max) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: $mob-max) {
+		@content;
+	}
+}
+
+.hl_table * {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+	"Courier New", monospace;
+	font-size: 12px;
+}
+
+body,
+html,
+* {
+	font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+	Noto Sans, sans-serif, BlinkMacSystemFont, Oxygen, Fira Sans, Droid Sans,
+	Helvetica Neue;
+	line-height: 1.5em;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-size: 14px;
+	min-width: 300px;
+}
+
+a {
+	color: $link-color;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+code {
+	background-color: #f7f7f7;
+}
+
+.form-error {
+	color: red;
+}
+
+pre > code {
+	background-color: #eff0f1;
+	display: block;
+}
+
+.no_select {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.content {
+	max-width: $mob-max;
+	margin: 0 auto;
+	margin-bottom: 200px;
+	min-height: calc(100vh - 300px);
+}
+
+.search-input {
+	position: absolute;
+	top: 10px;
+	right: 200px;
+
+	background-color: #000;
+	color: #fff;
+}
+
+.search-input::placeholder {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.user {
+	display: flex;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-right: 10px;
+}
+
+.user:focus {
+	outline: none;
+}
+
+.user:hover .header-dropdown,
+.header-dropdown:hover,
+.user:focus .header-dropdown {
+	transform: scale(1) translateY(0px);
+	opacity: 1;
+	pointer-events: all;
+}
+
+.user .header-dropdown * {
+	z-index: 10;
+	position: relative;
+}

@@ -402,3 +402,7 @@ form {
 	padding: 5px 0 5px 10px;
 	margin-top: 10px;
 	width: 100%;
+}
+
+@import "files", "langs", "tree", "commits", "hl_table", "branches", "admin",
+	"blob", "contributors", "issues", "user", "releases", "feed", "search";

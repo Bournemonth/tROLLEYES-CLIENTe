@@ -117,3 +117,288 @@ pre > code {
 	z-index: 10;
 	position: relative;
 }
+
+.user .header-dropdown .dropdown-hoverzone {
+	z-index: 5;
+	position: absolute;
+	top: -54px;
+	height: calc(100% + 54px + 4px);
+	width: calc(100% + 8px);
+	right: -4px;
+}
+
+.user .header-dropdown {
+	position: absolute;
+	color: $black;
+	border: 1px solid $gray;
+	border-radius: $medium-radius;
+	background: $white;
+	right: 4px;
+	top: 54px;
+	min-width: 145px;
+	transform: scale(0.95) translateY(-3px);
+	opacity: 0;
+	transform-origin: top;
+	pointer-events: none;
+	transition: transform 0.1s, opacity 0.1s;
+}
+
+.user .header-dropdown .username {
+	padding: 6px 12px;
+
+	span {
+		opacity: 0.9;
+		font-size: 13px;
+	}
+
+	a {
+		display: block;
+		padding: 0px;
+		font-size: 17px;
+		line-height: 1;
+		color: $black;
+	}
+}
+
+.user .header-dropdown .links {
+	border-top: 1px solid $gray;
+	padding: 4px 0px;
+}
+
+.user .header-dropdown .links a {
+	padding: 3px 12px;
+	display: block;
+	background-color: $white;
+	color: $black;
+	transition: background-color 0.07s, color 0.07s;
+}
+
+.user .header-dropdown .link:hover {
+	color: $white;
+	background-color: #1a7be9;
+}
+
+.avatar {
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	border-radius: 100%;
+	border: 1px solid #24292e;
+	background-color: #fff;
+	margin-top: 5px;
+	overflow: hidden;
+	z-index: 15;
+	cursor: pointer;
+
+	span {
+		line-height: 40px;
+		font-size: 25px;
+		margin: 0;
+	}
+
+	img {
+		height: 40px;
+		width: 40px;
+		margin: 0;
+		object-fit: cover;
+	}
+}
+
+.new {
+	display: flex;
+	position: absolute;
+	top: 0;
+	right: 75px;
+}
+
+.new a {
+	line-height: 50px;
+	font-size: 16px !important;
+	color: $white;
+}
+
+header {
+	.login-button {
+		color: $white;
+		line-height: 50px;
+	}
+}
+
+a.repo-author, a.repo-name {
+	line-height: 50px;
+	font-size: 20px !important;
+	font-weight: 600;
+}
+
+.repo-visibility {
+	border: 2px solid $black;
+	border-radius: 2em;
+	background-color: $black;
+	color: #fff;
+	margin-left: 5px;
+	font-size: 14px;
+	padding: 4px;
+}
+
+.slash {
+	display: inline;
+	line-height: 50px;
+	font-size: 16px !important;
+	color: $black;
+}
+
+header {
+	background-color: $black;
+	height: $header-height;
+	color: white;
+}
+
+footer {
+	max-width: $mob-max;
+	margin: 0 auto;
+	color: #777;
+}
+
+footer a {
+	color: #777;
+	text-decoration: underline;
+}
+
+#mainlogo {
+	line-height: 50px;
+	font-size: 20px !important;
+	margin-left: 10px;
+	float: left;
+	color: white;
+}
+
+textarea,
+input {
+	background: none;
+	color: $black;
+	border: 1px solid $gray;
+	padding: 5px 8px;
+	border-radius: $small-radius;
+	transition: border-color 0.07s;
+}
+
+textarea:focus,
+input:focus {
+	outline: none;
+	border: 1px solid #4392eb;
+}
+
+.button,
+button,
+input[type="submit"] {
+	cursor: pointer;
+	background: none;
+	color: $black;
+	border: 1px solid $gray;
+	padding: 5px 8px;
+	border-radius: $small-radius;
+	transition: background-color 0.07s, border-color 0.07s, color 0.07s;
+}
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover {
+	border: 1px solid #0366d6;
+	background-color: #1a7be9;
+	color: $white;
+}
+
+.button.disabled,
+button.disabled,
+input[type="submit"].disabled,
+button:disabled,
+input[type="submit"]:disabled {
+	color: rgba(0, 0, 0, 0.6);
+	border: 1px solid $gray-light;
+	pointer-events: none;
+}
+
+form.vertical-form * {
+	display: block;
+	margin-bottom: 5px;
+}
+
+form.vertical-form *:last-child {
+	margin-bottom: 0px;
+}
+
+form {
+	.field {
+	margin-top: 10px;
+	}
+
+	input[type="submit"] {
+		margin-top: 10px;
+	}
+}
+
+.form {
+	max-width: 400px;
+	margin: 0 auto;
+
+	input:not([type="checkbox"]):not([type="radio"]) {
+		box-sizing: border-box;
+		width: 100%;
+	}
+
+	textarea {
+		box-sizing: border-box;
+		width: 100%;
+	}
+}
+
+.block {
+	margin: auto;
+	max-width: 700px;
+	padding: 20px 10px 0 10px;
+}
+
+.list {
+	margin-left: 20px;
+}
+
+.gitly-screenshot {
+	width: 100%;
+}
+
+.table-features {
+	border-collapse: collapse;
+	border: 1px solid #dfdfdf;
+	width: 100%;
+
+	td {
+		border-collapse: collapse;
+		border: 1px solid #dfdfdf;
+		padding: 5px;
+	}
+}
+
+@keyframes alert-show {
+	0% { right: -100px; }
+	100% { right: 20px; }
+}
+
+.alert {
+	position: absolute;
+	top: 60px;
+	right: 20px;
+	padding: 20px;
+	background-color: #d94338;
+	color: #fff;
+	cursor: pointer;
+	border-radius: $small-radius;
+	animation-name: alert-show;
+	animation-duration: 1s;
+}
+
+.list-item {
+	border: 1px solid #dfdfdf;
+	border-radius: 3px;
+	padding: 5px 0 5px 10px;
+	margin-top: 10px;
+	width: 100%;

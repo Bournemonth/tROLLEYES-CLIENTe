@@ -1,0 +1,131 @@
+
+.repo-tabs {
+	position: fixed;
+	left: 5px;
+	top: 300px;
+
+	a {
+	display: block;
+	}
+}
+
+.repo-wrapper {
+	display: grid;
+	gap: 10px;
+	grid-template-areas: "branch branch . about";
+}
+
+.repo-stats {
+	a.menu {
+		display: inline-block;
+
+		@include mobile {
+			display: block;
+			width: 100%;
+		}
+
+		padding: 10px 10px 10px 0;
+		color: black !important;
+
+		&:hover,
+		&:hover * {
+			color: $link-color !important;
+			text-decoration: none;
+		}
+	}
+
+	span {
+		position: relative;
+		top: 2px;
+	}
+
+	svg {
+		position: relative;
+		top: 2px;
+		height: 14px;
+	}
+}
+
+.repo-about {
+	grid-area: about;
+
+	padding: 10px;
+}
+
+.branch-specific-container {
+	padding: 10px 10px 0 0;
+	grid-area: branch;
+
+	.branch-select {
+		border: 1px solid $gray;
+		border-radius: $medium-radius;
+		padding: 5px;
+		outline: none;
+	}
+
+.branch-specific-item {
+	display: inline;
+	margin-left: 10px;
+
+	a {
+		width: 14%;
+		text-align: center;
+		color: black !important;
+
+		svg {
+			position: relative;
+			top: 2px;
+			height: 14px;
+		}
+	}
+	}
+}
+
+.repo-clone {
+	margin-top: 10px;
+}
+
+.star-button, .watch-button {
+	margin-top: 10px;
+	min-width: 80px;
+
+	svg {
+		display: block;
+		height: 20px;
+		width: 20px;
+		padding-top: 4px;
+		margin: 0 auto;
+	}
+}
+
+.tree-path {
+	margin-top: 5px;
+}
+
+.tree-path a,
+h3 a {
+	display: inline-block;
+	font-size: 18px !important;
+}
+
+.readme {
+	border: 1px solid #dfdfdf;
+	border-radius: 3px;
+
+	padding: 20px 30px 20px 30px;
+	margin-top: 10px;
+
+	> * {
+		margin: 10px 0;
+	}
+
+	code {
+		border: 1px solid $black;
+		border-radius: $small-radius;
+		padding: 5px;
+	}
+
+	h1 {
+		font-size: 2em;
+		border-bottom: 1px solid #dfdfdf;
+	}

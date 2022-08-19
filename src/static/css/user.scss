@@ -1,0 +1,9 @@
+.profile-block-container {
+	display: grid;
+	grid-template-areas: "profile repos";
+	grid-template-columns: 260px 1fr;
+}
+
+.profile-block__left {
+	grid-area: profile;
+	max-width

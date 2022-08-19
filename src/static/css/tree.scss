@@ -129,3 +129,90 @@ h3 a {
 		font-size: 2em;
 		border-bottom: 1px solid #dfdfdf;
 	}
+
+	h2 {
+		font-size: 1.75em;
+	}
+
+	h3 {
+		font-size: 1.5em;
+	}
+
+	h4 {
+		font-size: 1.25em;
+	}
+
+	h5 {
+		font-size: 1em;
+	}
+
+	h6 {
+		font-size: 0.75em;
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	li.task-list-item:has(> input.task-list-item-checkbox) {
+		list-style: none;
+	}
+}
+
+.issue-id-anchor {
+	color: $link-color !important;
+}
+
+.repo-code-container {
+	position: relative;
+	display: inline-block;
+
+	margin-left: 10px;
+}
+
+.repo-code-button {
+	width: 70px;
+	padding: 5px;
+
+	background-color: #238636;
+	border-radius: $small-radius;
+	color: $white;
+
+	text-align: center;
+}
+
+.repo-clone-dropdown {
+	background-color: $black;
+	border-radius: $medium-radius;
+	padding: 10px;
+	position: absolute;
+
+	display: none;
+	width: 400px;
+
+	color: $white;
+
+	z-index: 1;
+
+	input {
+		color: $white;
+
+		width: 328px;
+	}
+
+	.copy-clone-url-button {
+		background-color: #fff;
+	}
+
+	.copy-clone-url-button:hover {
+		background-color: #1a7be9;
+	}
+}
+
+.repo-code-container:hover .repo-clone-dropdown {
+  display: block;
+}
+
+.clone-input-group {
+	margin-top: 10px;
+}

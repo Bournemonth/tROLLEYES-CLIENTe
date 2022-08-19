@@ -22,4 +22,25 @@
 	border-radius: 100%;
 	border: 2px solid #24292e;
 	margin-top: 5px;
-	overflow: hidd
+	overflow: hidden;
+	cursor: pointer;
+
+	img {
+		height: 256px;
+		width: 256px;
+		object-fit: cover;
+	}
+}
+
+.edit-profile-button {
+	width: 256px;
+}
+
+.new-ssh-key-block {
+	border-bottom: 1px solid $gray;
+	padding-bottom: 10px;
+	margin: 10px 0 10px 0;
+}
+
+.ssh-key {
+	border: 

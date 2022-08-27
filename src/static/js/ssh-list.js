@@ -6,4 +6,14 @@ const removeEls = document.querySelectorAll(".ssh-key-remove");
 
     if (confirm("Do you really want to remove \"" + title + "\"?")) {
       removeSSHKey(el.dataset.username, el.dataset.id)
-        .then(() => 
+        .then(() => location.reload())
+        .catch(error => alert(error));
+    }
+  });
+});
+
+async function removeSSHKey(username, id) {
+  await fetch(`/${username}/settings/ssh-keys/${id}`, {
+    method: "DELETE"
+  });
+}

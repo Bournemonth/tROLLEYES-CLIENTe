@@ -30,4 +30,15 @@ async function starRepo(repoId) {
   }
 }
 
-star
+starButtonEl.addEventListener("click", () => {
+  starRepo(REPO_ID)
+    .then(() => {
+      location.reload()
+    })
+    .catch((error) => {
+      alert(error.toString());
+    })
+});
+
+const copyCloneURLButton = document.querySelector(".copy-clone-url-button");
+copyCloneU

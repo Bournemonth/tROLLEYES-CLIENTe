@@ -41,4 +41,11 @@ starButtonEl.addEventListener("click", () => {
 });
 
 const copyCloneURLButton = document.querySelector(".copy-clone-url-button");
-copyCloneU
+copyCloneURLButton.addEventListener("click", async () => {
+  const url = document.querySelector(".clone-input-group > input").value;
+
+  if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(url);
+  }
+
+  alert("The C

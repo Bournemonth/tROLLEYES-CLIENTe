@@ -17,4 +17,17 @@ fileEls.forEach(fileEl => {
 const starButtonEl = document.querySelector(".star-button");
 
 async function starRepo(repoId) {
-  const url = "/api/v1/repos/" + 
+  const url = "/api/v1/repos/" + repoId + "/star";
+  const response = await fetch(url, {
+    method: "POST"
+  });
+  const json = await response.json();
+
+  if (json.success) {
+    return json.result === "true";
+  } else {
+    throw new Error(json.message);
+  }
+}
+
+star

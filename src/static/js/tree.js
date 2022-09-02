@@ -48,4 +48,14 @@ copyCloneURLButton.addEventListener("click", async () => {
     return navigator.clipboard.writeText(url);
   }
 
-  alert("The C
+  alert("The Clipboard API is not available.");
+});
+
+const watchButtonEl = document.querySelector(".watch-button");
+
+async function watchRepo(repoId) {
+  const url = "/api/v1/repos/" + repoId + "/watch";
+  const response = await fetch(url, {
+    method: "POST"
+  });
+  const

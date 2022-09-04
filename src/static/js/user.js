@@ -14,4 +14,18 @@ function selectAvatar() {
       return;
     }
 
-    await uploadAvatar
+    await uploadAvatar(file);
+  }
+
+  fileInputEl.click();
+}
+
+async function uploadAvatar(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("/api/v1/users/avatar", {
+    method: "POST",
+    body: formData
+  });
+  const json =

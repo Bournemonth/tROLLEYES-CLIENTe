@@ -72,4 +72,7 @@ watchButtonEl.addEventListener("click", () => {
     .then(() => {
       location.reload()
     })
-    .catch((error)
+    .catch((error) => {
+      alert(error.toString());
+    })
+});

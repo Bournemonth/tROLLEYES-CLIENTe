@@ -58,4 +58,18 @@ async function watchRepo(repoId) {
   const response = await fetch(url, {
     method: "POST"
   });
-  const
+  const json = await response.json();
+
+  if (json.success) {
+    return json.result;
+  } else {
+    throw new Error(json.message);
+  }
+}
+
+watchButtonEl.addEventListener("click", () => {
+  watchRepo(REPO_ID)
+    .then(() => {
+      location.reload()
+    })
+    .catch((error)

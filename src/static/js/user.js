@@ -28,4 +28,11 @@ async function uploadAvatar(file) {
     method: "POST",
     body: formData
   });
-  const json =
+  const json = await response.json();
+
+  if (json.success) {
+    location.reload();
+  } else {
+    alert(json.message);
+  }
+}

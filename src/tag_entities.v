@@ -8,4 +8,5 @@ mut:
 	hash       string
 	message    string
 	user_id    int
-	c
+	created_at int
+}

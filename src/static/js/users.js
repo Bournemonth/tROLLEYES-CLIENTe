@@ -6,4 +6,6 @@ showUserEls.forEach(showUserEl => {
     const panelEl = document.getElementById(userID);
 
     panelEl.style.display = panelEl.style.display == 'flex' ? 'none' : 'flex';
-    showUserEl.innerText = showUserEl.innerText.t
+    showUserEl.innerText = showUserEl.innerText.toLowerCase().startsWith('show') ? 'Hide user' : 'Show user';
+  });
+});

@@ -5,4 +5,13 @@ import os
 
 ['/:username/:repo_name/tag/:tag/:format']
 pub fn (mut app App) handle_download_tag_archive(username string, repo_name string, tag string, format string) vweb.Result {
-	// access checking will be implemented in anoth
+	// access checking will be implemented in another module
+	user := app.get_user_by_username(username) or { return app.not_found() }
+	repo := app.find_repo_by_name_and_user_id(repo_name, user.id)
+
+	if repo.id == 0 {
+		return app.not_found()
+	}
+
+	archive_abs_path := os.abs_path(app.config.archive_path)
+	snapshot_format := if 

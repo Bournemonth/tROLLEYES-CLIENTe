@@ -14,4 +14,10 @@ pub fn (mut app App) handle_download_tag_archive(username string, repo_name stri
 	}
 
 	archive_abs_path := os.abs_path(app.config.archive_path)
-	snapshot_format := if 
+	snapshot_format := if format == 'zip' { 'zip' } else { 'tar.gz' }
+	snapshot_name := '${username}_${repo_name}_${tag}.${snapshot_format}'
+	archive_path := '${archive_abs_path}/${snapshot_name}'
+
+	if format == 'zip' {
+		repo.archive_tag(tag, archive_path, .zip)
+	} el

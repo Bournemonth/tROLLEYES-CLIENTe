@@ -20,4 +20,11 @@ pub fn (mut app App) handle_download_tag_archive(username string, repo_name stri
 
 	if format == 'zip' {
 		repo.archive_tag(tag, archive_path, .zip)
-	} el
+	} else {
+		repo.archive_tag(tag, archive_path, .tar)
+	}
+
+	archive_content := os.read_file(archive_path) or { return app.not_found() }
+
+	return app.send_file(snapshot_name, archive_content)
+}

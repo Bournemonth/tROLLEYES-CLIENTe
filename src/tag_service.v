@@ -12,4 +12,16 @@ fn (mut app App) fetch_tags(repo Repo) {
 		tag_name := tag_parts[0]
 		commit_hash := tag_parts[1]
 		commit_message := tag_parts[2]
-		
+		author_email := tag_parts[3]
+		commit_date := time.parse_rfc2822(tag_parts[4]) or {
+			app.info('Error: ${err}')
+			return
+		}
+
+		user := app.get_user_by_email(author_email) or {
+			User{
+				username: author_email
+			}
+		}
+
+		app.add_tag(repo.id, tag_nam

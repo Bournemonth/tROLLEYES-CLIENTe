@@ -24,4 +24,10 @@ fn (mut app App) fetch_tags(repo Repo) {
 			}
 		}
 
-		app.add_tag(repo.id, tag_nam
+		app.add_tag(repo.id, tag_name, commit_hash, commit_message, user.id, int(commit_date.unix))
+	}
+}
+
+fn (mut app App) add_tag(repo_id int, tag_name string, commit_hash string, commit_message string, user_id int, date int) {
+	tag := sql app.db {
+		select from Tag where repo_id == repo_id

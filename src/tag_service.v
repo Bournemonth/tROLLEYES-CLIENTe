@@ -30,4 +30,25 @@ fn (mut app App) fetch_tags(repo Repo) {
 
 fn (mut app App) add_tag(repo_id int, tag_name string, commit_hash string, commit_message string, user_id int, date int) {
 	tag := sql app.db {
-		select from Tag where repo_id == repo_id
+		select from Tag where repo_id == repo_id && name == tag_name limit 1
+	}
+
+	if tag.id != 0 {
+		return
+	}
+
+	new_tag := Tag{
+		repo_id: repo_id
+		name: tag_name
+		hash: commit_hash
+		message: commit_message
+		user_id: user_id
+		created_at: date
+	}
+
+	sql app.db {
+		insert new_tag into Tag
+	}
+}
+
+fn (mu

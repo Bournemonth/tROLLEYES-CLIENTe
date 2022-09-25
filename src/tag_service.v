@@ -51,4 +51,8 @@ fn (mut app App) add_tag(repo_id int, tag_name string, commit_hash string, commi
 	}
 }
 
-fn (mu
+fn (mut app App) get_all_repo_tags(repo_id int) []Tag {
+	return sql app.db {
+		select from Tag where repo_id == repo_id order by created_at desc
+	}
+}

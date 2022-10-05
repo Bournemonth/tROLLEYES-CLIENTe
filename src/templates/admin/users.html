@@ -30,4 +30,15 @@
 							<label class='data-show-user' id='l_@user.id' data-id="@user.id">Show user</label>
 							<div class='data-box' id='@user.id'>
 								.clog-block data-emails {
-									<label>User emails</l
+									<label>User emails</label>
+									<ul>
+										@for email in user.emails
+											<li class='clog data-email'>@email.email</li>
+										@end
+									</ul>
+								}
+								<div class='user-settings'>
+									.data-options {
+										<label>Settings</label>
+										<div>
+			

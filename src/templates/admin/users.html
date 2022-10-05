@@ -13,4 +13,14 @@
 				<a href="/admin/settings">Settings</a>
 				|
 				<span>Users</span>
-				
+				|
+				<a href="/admin/statistics">Statistics</a>
+			</div>
+
+			.clog-block {
+				@for user in users
+					.clog {
+						<form action='/admin/users/@user.id' method='post' class='data'>
+							.data-user {
+								.avatar {
+									<img src="@{app.prepare_us

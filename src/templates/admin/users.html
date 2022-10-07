@@ -41,4 +41,12 @@
 									.data-options {
 										<label>Settings</label>
 										<div>
-			
+											<input name="stop-session" type="checkbox">
+											<label>Clear user sessions</label>
+										</div>
+										<div>
+											<input name="is-blocked" type="checkbox"
+											@if user.is_blocked
+												checked
+											@end
+						

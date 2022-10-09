@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		@include 'layout/head.html'
+	</head>
+	<body>
+		@include 'layout/header.html'
+
+		<div class="content">
+			@include 'layout/repo_menu.html'
+
+			<h1>Branches</h1>
+
+			.branches {
+				@for branch in branches
+					.branch {
+						.clog-block {
+							.clog {
+								.clog-msg {
+									<a href='/@repo.user_name/@repo.name/tree/@branch.name'>@branch.name</a>
+								}
+
+								<span >@branch.author</span>
+
+								span.clog-time {
+									updated @branch.relative()
+								}
+							}
+						}
+					}
+				@end
+			}
+		</div>
+
+		@include 'layout/footer.html'
+	</body>
+</html>

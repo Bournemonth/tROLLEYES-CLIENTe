@@ -19,4 +19,17 @@
 				}
 
 				<span>
-	
+					<a href="@patch_url">View patch</a>
+				</span>
+			</div>
+
+			@for _, src in sources
+				<div class="commit-file-diff">
+					<pre>@src</pre>
+				</div>
+			@end
+		</div>
+
+		@include 'layout/footer.html'
+	</body>
+</html>

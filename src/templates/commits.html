@@ -1,4 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		@inclu
+		@include 'layout/head.html'
+	</head>
+	<body>
+		@include 'layout/header.html'
+
+		<div class="content">
+			@include 'layout/repo_menu.html'
+
+			@for day, commits2 in d_commits
+				.commit-day {
+					.commit-day-title {
+						Commits @msg @day
+					}
+					.clog-block 

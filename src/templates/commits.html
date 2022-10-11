@@ -14,4 +14,16 @@
 					.commit-day-title {
 						Commits @msg @day
 					}
-					.clog-block 
+					.clog-block {
+						@for commit in commits2
+							.clog {
+								.clog-msg {
+									<a href='/@repo.user_name/@repo.name/commit/@commit.hash'>@commit.message</a>
+								}
+
+								<span>@commit.author</span>
+
+								span.clog-time {
+									commited @commit.relative()
+								}
+	

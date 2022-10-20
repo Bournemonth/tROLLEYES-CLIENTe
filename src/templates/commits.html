@@ -45,4 +45,12 @@
 					@if is_last_page
 						<a href="/@repo.user_name/@repo.name/@branch_name/commits/@next_page" class="button disabled">Next</a>
 					@else
-	
+						<a href="/@repo.user_name/@repo.name/@branch_name/commits/@next_page" class="button">Next</a>
+					@end
+				</div>
+			@end
+		</div>
+
+		@include 'layout/footer.html'
+	</body>
+</html>

@@ -26,4 +26,15 @@
 								span.clog-time {
 									commited @commit.relative()
 								}
-	
+							}
+						@end
+					}
+				}
+			@end
+
+			@if d_commits.len > 0
+				<div class="buttons">
+					@if is_first_page
+						<a href="/@repo.user_name/@repo.name/@branch_name/commits/@prev_page" class="button disabled">Prev</a>
+					@else
+						<a href="/@repo.user_nam

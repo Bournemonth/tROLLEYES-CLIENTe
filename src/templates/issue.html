@@ -7,4 +7,14 @@
 		@include 'layout/header.html'
 
 		.form-error {
-			@app.form_
+			@app.form_error
+		}
+
+		<div class="content">
+			@include 'layout/repo_menu.html'
+
+			<div class="issue-main-post">
+				<h1>@issue.title #@issue.id</h1>
+				<div class="avatar-with-user-info">
+					<img src="@{app.prepare_user_avatar_url(issue_author.avatar)}">
+				

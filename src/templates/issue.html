@@ -36,4 +36,14 @@
 
 			@if app.logged_in
 				<form method='post' class='form vertical-form comment-post-form' action='/@repo.user_name/@repo.name/comments'>
-					<textarea type='text' class='input-comment' name='text' placeholder='Leave a comment' required></text
+					<textarea type='text' class='input-comment' name='text' placeholder='Leave a comment' required></textarea>
+					<input type='hidden' name='issue_id' value='@issue.id'>
+					<input type='submit' class="comment-post-submit" name='submit' value='Comment'>
+				</form>
+			@end
+		</div>
+
+		@js '/js/block-form.js'
+		@include 'layout/footer.html'
+	</body>
+</html>

@@ -30,4 +30,10 @@
 					<span>
 						<a href="/@comment_with_user.user.username"><i>@comment_with_user.user.username</i></a> </i>commented @comment_with_user.item.relative()</i>
 						<p>@comment_with_user.item.text</p>
-					</sp
+					</span>
+				</div>
+			@end
+
+			@if app.logged_in
+				<form method='post' class='form vertical-form comment-post-form' action='/@repo.user_name/@repo.name/comments'>
+					<textarea type='text' class='input-comment' name='text' placeholder='Leave a comment' required></text

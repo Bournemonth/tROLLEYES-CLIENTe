@@ -3,4 +3,14 @@
 		<a class="repo-author" href='/@repo.user_name'>@repo.user_name</a>
 		<p class="slash">/</p>
 	@end
-	<a class="repo-name" href='/@repo.user_
+	<a class="repo-name" href='/@repo.user_name/@repo.name'>@repo.name</a>
+
+	@if repo.is_public
+		<span class="repo-visibility">Public</span>
+	@else
+		<span class="repo-visibility">Private</span>
+	@end
+</div>
+
+<div class='repo-stats'>
+	<a class='menu' href='/@repo.user_name/@repo.name/issues'

@@ -27,4 +27,11 @@
 				</form>
 			</div>
 
-			@if app.settings.oauth_clien
+			@if app.settings.oauth_client_id != ''
+				<a href='https://github.com/login/oauth/authorize?response_type=code&state=@csrf&client_id=@app.settings.oauth_client_id'>Login via GitHub</a>
+			@end
+		</div>
+
+		@js '/js/block-form.js'
+		@include 'layout/footer.html'
+	<

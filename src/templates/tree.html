@@ -4,4 +4,13 @@
 		@include 'layout/head.html'
 	</head>
 	<body>
-		@inc
+		@include 'layout/header.html'
+
+		<script>
+			const TREE_BRANCH_PATH_TEMPLATE = "/@repo.user_name/@repo.name/tree/";
+			const BRANCH_NAME = "@branch_name";
+			const REPO_ID = @repo.id;
+		</script>
+
+		<div class="content">
+			@include 'layout/repo_menu.htm

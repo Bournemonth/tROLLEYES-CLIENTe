@@ -13,4 +13,11 @@
 		</script>
 
 		<div class="content">
-			@include 'layout/repo_menu.htm
+			@include 'layout/repo_menu.html'
+
+			<div class="repo-wrapper">
+				<span class="branch-specific-container">
+					<select class="branch-select" name="branch">
+						@for name in app.get_all_repo_branch_names(repo.id)
+							<option value="@name">@name</option>
+						@en

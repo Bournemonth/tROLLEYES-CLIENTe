@@ -20,4 +20,9 @@
 					<select class="branch-select" name="branch">
 						@for name in app.get_all_repo_branch_names(repo.id)
 							<option value="@name">@name</option>
-						@en
+						@end
+					</select>
+
+					<div class="branch-specific-item">
+						<a href='/@repo.user_name/@repo.name/@branch_name/commits/0'>
+							<svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor"

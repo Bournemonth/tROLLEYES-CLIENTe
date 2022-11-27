@@ -72,4 +72,13 @@
 							</button>
 						@end
 
+						@if is_repo_watcher
+							<button class="watch-button">
+								@include 'svgs/unwatch.html'
+								Unwatch @{watcher_count}
+							</button>
+						@else
+							<button class="watch-button">
+								@include 'svgs/watch.html'
+								Watch @{watcher_count}
 				

@@ -37,3 +37,15 @@
 							Clone with HTTPS:
 							<div class="clone-input-group">
 								<input disabled value="@{app.generate_clone_url(repo)}">
+								<button class="copy-clone-url-button">Copy</button>
+							</div>
+						</div>
+					</div>
+				</span>
+
+				@if is_top_directory
+					<div class="repo-about">
+						<h2>About</h2>
+						<p>@repo.description</p>
+
+						@if readme.len > 0

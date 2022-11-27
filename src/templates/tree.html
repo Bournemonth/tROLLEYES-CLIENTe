@@ -49,3 +49,16 @@
 						<p>@repo.description</p>
 
 						@if readme.len > 0
+							<div>
+								<a href="#readme">Readme</a>
+							</div>
+						@end
+
+						@if license_file_path.len > 0
+							<div>
+								<a href="@{license_file_path}">License</a>
+							</div>
+						@end
+
+						@if is_repo_starred
+							<button class

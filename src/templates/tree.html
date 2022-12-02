@@ -81,4 +81,17 @@
 							<button class="watch-button">
 								@include 'svgs/watch.html'
 								Watch @{watcher_count}
-				
+							</button>
+						@end
+					</div>
+				@end
+			</div>
+
+			@include './layout/tree_path.html'
+
+			@if has_commits
+				.lang-stats-header {
+					.langs {
+						@for stat in repo.lang_stats
+							.lang-stat {
+								<span class='lang-stat-dot' style='background-color:@{stat.color}'>&nbsp;</

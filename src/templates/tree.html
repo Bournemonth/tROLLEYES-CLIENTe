@@ -94,4 +94,19 @@
 					.langs {
 						@for stat in repo.lang_stats
 							.lang-stat {
-								<span class='lang-stat-dot' style='background-color:@{stat.color}'>&nbsp;</
+								<span class='lang-stat-dot' style='background-color:@{stat.color}'>&nbsp;</span>
+								<b>@stat.name</b>
+								@{stat.pct_html()}
+							}
+						@end
+					}
+
+					.lang-stats-bar {
+						@for stat in repo.lang_stats
+							<div style='flex:@{stat.pct}; background-color:@stat.color'></div>
+						@end
+					}
+				}
+			@end
+
+			@if has_co

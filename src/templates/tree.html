@@ -116,4 +116,13 @@
 						span.last_commit_message {
 							@last_commit.message
 						}
-						<a href="/@repo.user_name/@repo.name/commit/@last_commit.hash" class="last_commit_hash">@last_c
+						<a href="/@repo.user_name/@repo.name/commit/@last_commit.hash" class="last_commit_hash">@last_commit.hash</a>
+						span.time {
+							@last_commit.relative()
+						}
+					}
+
+					@if can_up
+						.file {
+							span.file-ico {
+								<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="folder" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 

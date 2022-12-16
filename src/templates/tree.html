@@ -145,4 +145,22 @@
 								<a href='/@repo.user_name/@repo.name/@file.url()'>@file.name</a>
 							}
 							span.file-msg {
-								<a href="/@repo.user_name/@repo.name/commit/@file.last_hash#@file.ful
+								<a href="/@repo.user_name/@repo.name/commit/@file.last_hash#@file.full_path()">@file.format_commit_message()</a>
+							}
+							span.file-time {
+								@file.pretty_last_time()
+							}
+						}
+					@end
+				}
+
+				@if readme.len > 0
+					<div class="readme" id="readme">
+						@readme
+					</div>
+				@end
+			@else
+				<p>No commits</p>
+			@end
+
+	

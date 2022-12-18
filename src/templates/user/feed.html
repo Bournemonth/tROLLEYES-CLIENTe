@@ -11,4 +11,13 @@
 		}
 
 		<div class="content">
-			
+			<div class='avatar'>
+				<img src="@{app.prepare_user_avatar_url(app.user.avatar)}">
+			</div>
+
+			<h1> @{user.username}'s feed</h1>
+
+			@if feed.len > 0
+				@for item in feed
+					@if item.id in items_start_day_group
+						<div class="feed-d

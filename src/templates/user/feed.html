@@ -27,4 +27,14 @@
 						<a href="/@item.repo_owner/@item.repo_name">
 							<h3>@item.repo_owner/@item.repo_name</h3>
 						</a>
-						<p><b>@item.author_name </b>commited <q>@item.message</q
+						<p><b>@item.author_name </b>commited <q>@item.message</q></p>
+						<br>
+						<time><i>@item.created_at</i></time>
+					</div>
+				@end
+
+				<div class="buttons">
+					@if is_first_page
+						<a href="/@username/feed/@prev_page" class="button disabled">Prev</a>
+					@else
+						<a href="/@username/feed/@pr

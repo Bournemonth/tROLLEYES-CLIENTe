@@ -46,4 +46,13 @@
 						<a href="/@username/feed/@next_page" class="button disabled">Next</a>
 					@else
 						<a href="/@username/feed/@next_page" class="button">Next</a>
-	
+					@end
+				</div>
+			@else
+				<h2>Feed is empty</h2>
+			@end
+		</div>
+
+		@include '../layout/footer.html'
+	</body>
+</html>

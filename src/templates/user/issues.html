@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		@include '../layout/head.html'
+	</head>
+	<body>
+		@include '../layout/header.html'
+
+		<div class="content">
+			<div class='avatar'>
+				<img src="@{app.prepare_user_avatar_url(user.avatar)}">
+			</div>
+
+			<h1>@user.username's issues</h1>
+
+			.commit-day {
+			}
+
+			.clog-block {
+				@for issue_with_user in issues_with_users
+					.clog {
+						.clog-msg {
+							<a href="/@issue_with_user.item.repo_author/@issue_with_user.item.repo_name/issue/@issue_with_user.item.id">@issue_with_user.item.title</a>
+						}
+
+						<span>
+							#@issue_with_user.item.id opened @issue_with_user.item.relative_time()
+							by @issue_with_user.user.username
+						</span>
+
+						@if issue_with_user.item.comments_count > 0
+							.comments {
+								@if issue_with_user.item.comments_count == 1
+									@issue_with_user.item.comments_count comment
+								@else
+									@issue_with_user.item.comments_count comments
+								@end
+							}
+						@end
+					}
+				@end
+			}
+
+			@if issues.len > 0
+				<div class="buttons">
+					<br>
+					@if first
+						<a href="/@app.user.username/issues/@last_site" class="button disabled">Prev</a>
+					@else
+						<a href="/@app.user.username/issues/@last_site" class="button">Prev</a>/
+					@end
+
+					@if last
+						<a href="/@app.user.username/issues/@next_site" class="button disabled">Next</a>
+					@else
+						<a href="/@app.user.username/issues/@next_site" class="button">Next</a>
+					@end
+				</div>
+			@else
+				<h2>No issues</h2>
+			@end
+		</div>
+
+		@include '../layout/footer.html'
+	</body>
+</html>

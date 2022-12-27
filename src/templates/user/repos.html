@@ -15,4 +15,12 @@
 
 				@if repos.len > 0
 					@for repo in repos
-					
+						<div class="list-item">
+							<a href="/@user.username/@repo.name">
+								<h3>@repo.name</h3>
+							</a>
+							@if repo.description.len > 0
+								<p><i>@repo.description</i></p>
+							@end
+							@if repo.is_public
+								<p><b>Public</b>

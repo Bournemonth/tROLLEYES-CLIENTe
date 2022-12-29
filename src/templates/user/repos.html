@@ -23,4 +23,17 @@
 								<p><i>@repo.description</i></p>
 							@end
 							@if repo.is_public
-								<p><b>Public</b>
+								<p><b>Public</b></p>
+							@else
+								<p><b>Private</b></p>
+							@end
+						</div>
+					@end
+				@else
+					<h2>No repositories</h2>
+				@end
+		</div>
+
+		@include '../layout/footer.html'
+	</body>
+</html>

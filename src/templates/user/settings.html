@@ -3,4 +3,16 @@
 	<head>
 		@include '../layout/head.html'
 	</head>
-	<bo
+	<body>
+		@include '../layout/header.html'
+
+		.form-error {
+			@app.form_error
+		}
+
+		<div class="content">
+			<h1>User settings</h1>
+
+			<a href="/${app.user.username}/settings">Public profile</a>
+			|
+			<a href="/${app.user.username}/settings/ssh-keys">SSH key

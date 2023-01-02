@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		@include '../../../layout/head.html'
+	</head>
+	<body>
+		@include '../../../layout/header.html'
+
+		.form-error {
+			@app.form_error
+		}
+
+		<div class="content">
+			<h1>SSH keys</h1>
+
+			<a href="/${app.user.username}/settings">Public profile</a>
+			|
+			<a href="/${app.user.username}/settings/ssh-keys">SSH keys</a>
+
+			<div class="new-ssh-key-block">
+				<a href="/${app.user.username}/settings/ssh-keys/new">
+					<button>New SSH key</button>
+				</a>
+			</div>
+
+			@if ssh_keys.len == 0
+				<p>There are no SSH keys associated with your account.</p>
+			@else
+				@for ssh_key in ssh_keys
+					<div class="ssh-key">
+						<h3>@ssh_key.title</h3>
+						<p>@ssh_key.created_at.relative()</p>
+						<button class="ssh-key-remove" data-id="@ssh_key.id" data-username="@app.user.username" data-title="@ssh_key.title">Remove</button>
+					</div>
+				@end
+			@end
+		</div>
+
+		@js '/js/ssh-list.js'
+		@include '../../../layout/footer.html'
+	</body>
+</html>

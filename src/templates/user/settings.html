@@ -21,4 +21,16 @@
 				<div class="field">
 					<input type="text" name="full_name" value="@app.user.full_name" placeholder="Full name">
 				</div>
-				<div class="fi
+				<div class="field">
+					<input type="text" name="name" value="@app.user.username" placeholder="Username">
+				</div>
+				<div class="field">
+					<input type="submit" value="Save settings">
+				</div>
+			</form>
+		</div>
+
+		@js '/js/block-form.js'
+		@include '../layout/footer.html'
+	</body>
+</htm

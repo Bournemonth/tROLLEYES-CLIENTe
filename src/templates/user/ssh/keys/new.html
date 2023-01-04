@@ -13,4 +13,10 @@
 		<div class="content">
 			<h1>New SSH key</h1>
 
-			<a href="/
+			<a href="/${app.user.username}/settings">Public profile</a>
+			|
+			<a href="/${app.user.username}/settings/ssh-keys">SSH keys</a>
+
+			<form class="form" action="/@app.user.username/settings/ssh-keys" method="post">
+				<div class="field">
+					<input type="text" name="title" placehold

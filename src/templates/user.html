@@ -14,4 +14,16 @@
 					</div>
 
 					@if user.full_name.len > 0
-						<h4>@user.full_na
+						<h4>@user.full_name</h4>
+					@end
+					<h3>@user.username</h3>
+
+					@if is_page_owner
+						<a href="/@user.username/settings">
+							<button class="edit-profile-button">Edit profile</button>
+						</a>
+					@end
+				</div>
+
+				<div class="profile-block__right">
+					<h1>Repositories</

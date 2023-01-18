@@ -26,4 +26,15 @@
 				</div>
 
 				<div class="profile-block__right">
-					<h1>Repositories</
+					<h1>Repositories</h1>
+
+					@if repos.len > 0
+						@for repo in repos
+							<div class="list-item">
+								<a href="/@user.username/@repo.name">
+									<h3>@repo.name</h3>
+								</a>
+								@if repo.description.len > 0
+									<p><i>@repo.description</i></p>
+								@end
+		

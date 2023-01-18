@@ -37,4 +37,18 @@
 								@if repo.description.len > 0
 									<p><i>@repo.description</i></p>
 								@end
-		
+								@if is_page_owner
+									@if repo.is_public
+										<p><b>Public</b></p>
+									@else
+										<p><b>Private</b></p>
+									@end
+								@end
+							</div>
+						@end
+						@else
+							<h2>No repositories</h2>
+						@end
+				</div>
+			</div>
+

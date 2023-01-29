@@ -52,3 +52,12 @@
 				</div>
 			</div>
 
+			<div class="profile-activities">
+				<h2>Contribution activity</h2>
+
+				@for activity in activities
+					@if activity.name == 'joined'
+						<div class="activity">
+							<h4>Joined Gitly</h4>
+							<div class="activity-joined">
+								<p>Jo

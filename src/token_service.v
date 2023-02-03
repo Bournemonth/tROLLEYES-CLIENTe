@@ -9,3 +9,22 @@ fn (mut app App) add_token(user_id int, ip string) string {
 
 	token := Token{
 		user_id: user_id
+		value: uuid
+		ip: ip
+	}
+
+	sql app.db {
+		insert token into Token
+	}
+
+	return uuid
+}
+
+fn (mut app App) get_token(value string) ?Token {
+	token := sql app.db {
+		select from Token where value == value limit 1
+	}
+
+	if token.id == 0 {
+		return none
+	}

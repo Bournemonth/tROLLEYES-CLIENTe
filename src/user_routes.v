@@ -98,3 +98,204 @@ pub fn (mut app App) handle_update_user_settings(username string) vweb.Result {
 
 	if !app.logged_in || !is_users_settings {
 		return app.redirect_to_index()
+	}
+
+	// TODO: uneven parameters count (2) in `handle_update_user_settings`, compared to the vweb route `['/:user/settings', 'post']` (1)
+	new_username := app.form['name']
+	full_name := app.form['full_name']
+
+	is_username_empty := validation.is_string_empty(new_username)
+
+	if is_username_empty {
+		app.error('New name is empty')
+
+		return app.user_settings(username)
+	}
+
+	if app.user.namechanges_count > max_namechanges {
+		app.error('You can not change your username, limit reached')
+
+		return app.user_settings(username)
+	}
+
+	is_username_valid := validation.is_username_valid(new_username)
+
+	if !is_username_valid {
+		app.error('New username is not valid')
+
+		return app.user_settings(username)
+	}
+
+	is_first_namechange := app.user.last_namechange_time == 0
+	can_change_usernane := app.user.last_namechange_time + namechange_period <= time.now().unix
+
+	if !(is_first_namechange || can_change_usernane) {
+		app.error('You need to wait until you can change the name again')
+
+		return app.user_settings(username)
+	}
+
+	is_new_username := new_username != username
+	is_new_full_name := full_name != app.user.full_name
+
+	if is_new_full_name {
+		app.change_full_name(app.user.id, full_name)
+	}
+
+	if is_new_username {
+		user := app.get_user_by_username(new_username) or { User{} }
+
+		if user.id != 0 {
+			app.error('Name already exists')
+
+			return app.user_settings(username)
+		}
+
+		app.change_username(app.user.id, new_username)
+		app.incement_namechanges(app.user.id)
+		app.rename_user_directory(username, new_username)
+	}
+
+	return app.redirect('/${new_username}')
+}
+
+fn (mut app App) rename_user_directory(old_name string, new_name string) {
+	os.mv('${app.config.repo_storage_path}/${old_name}', '${app.config.repo_storage_path}/${new_name}') or {
+		panic(err)
+	}
+}
+
+pub fn (mut app App) register() vweb.Result {
+	no_users := app.get_users_count() == 0
+
+	app.current_path = ''
+
+	return $vweb.html()
+}
+
+['/register'; post]
+pub fn (mut app App) handle_register(username string, email string, password string, no_redirect string) vweb.Result {
+	no_users := app.get_users_count() == 0
+
+	if username in ['login', 'register', 'new', 'new_post', 'oauth'] {
+		app.error('Username `${username}` is not available')
+		return app.register()
+	}
+
+	user_chars := username.bytes()
+
+	if user_chars.len > max_username_len {
+		app.error('Username is too long (max. ${max_username_len})')
+		return app.register()
+	}
+
+	if username.contains('--') {
+		app.error('Username cannot contain two hyphens')
+		return app.register()
+	}
+
+	if user_chars[0] == `-` || user_chars.last() == `-` {
+		app.error('Username cannot begin or end with a hyphen')
+		return app.register()
+	}
+
+	for ch in user_chars {
+		if !ch.is_letter() && !ch.is_digit() && ch != `-` {
+			app.error('Username cannot contain special characters')
+			return app.register()
+		}
+	}
+
+	is_username_valid := validation.is_username_valid(username)
+
+	if !is_username_valid {
+		app.error('Username is not valid')
+
+		return app.register()
+	}
+
+	if password == '' {
+		app.error('Password cannot be empty')
+
+		return app.register()
+	}
+
+	salt := generate_salt()
+	hashed_password := hash_password_with_salt(password, salt)
+
+	if username == '' || email == '' {
+		app.error('Username or Email cannot be emtpy')
+		return app.register()
+	}
+
+	if !app.register_user(username, hashed_password, salt, [email], false, no_users) {
+		app.error('Failed to register')
+		return app.register()
+	}
+
+	user := app.get_user_by_username(username) or {
+		app.error('User already exists')
+		return app.register()
+	}
+
+	if no_users {
+		app.add_admin(user.id)
+	}
+
+	client_ip := app.ip()
+
+	app.auth_user(user, client_ip)
+	app.add_security_log(user_id: user.id, kind: .registered)
+
+	if no_redirect == '1' {
+		return app.text('ok')
+	}
+
+	return app.redirect('/' + username)
+}
+
+['/api/v1/users/avatar'; post]
+pub fn (mut app App) handle_upload_avatar() vweb.Result {
+	if !app.logged_in {
+		return app.not_found()
+	}
+
+	avatar := app.Context.files['file'].first()
+	file_content_type := avatar.content_type
+	file_content := avatar.data
+
+	file_extension := extract_file_extension_from_mime_type(file_content_type) or {
+		response := api.ApiErrorResponse{
+			message: err.str()
+		}
+
+		return app.json(response)
+	}
+
+	is_content_size_valid := validate_avatar_file_size(file_content)
+
+	if !is_content_size_valid {
+		response := api.ApiErrorResponse{
+			message: 'This file is too large to be uploaded'
+		}
+
+		return app.json(response)
+	}
+
+	username := app.user.username
+	avatar_filename := '${username}.${file_extension}'
+
+	app.write_user_avatar(avatar_filename, file_content)
+	app.update_user_avatar(app.user.id, avatar_filename)
+
+	avatar_file_path := app.build_avatar_file_path(avatar_filename)
+	avatar_file_url := app.build_avatar_file_url(avatar_filename)
+
+	app.serve_static(avatar_file_url, avatar_file_path)
+
+	response := api.ApiResponse{
+		success: true
+	}
+
+	return app.json(response)
+}

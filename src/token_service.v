@@ -28,3 +28,12 @@ fn (mut app App) get_token(value string) ?Token {
 	if token.id == 0 {
 		return none
 	}
+
+	return token
+}
+
+fn (mut app App) delete_tokens(user_id int) {
+	sql app.db {
+		delete from Token where user_id == user_id
+	}
+}

@@ -335,3 +335,60 @@ fn (mut app App) change_username(user_id int, username string) {
 fn (mut app App) change_full_name(user_id int, full_name string) {
 	sql app.db {
 		update User set full_name = full_name where id == user_id
+	}
+}
+
+fn (mut app App) incement_namechanges(user_id int) {
+	now := int(time.now().unix)
+
+	sql app.db {
+		update User set namechanges_count = namechanges_count + 1, last_namechange_time = now
+		where id == user_id
+	}
+}
+
+fn (mut app App) check_username(username string) (bool, User) {
+	if username.len == 0 {
+		return false, User{}
+	}
+
+	mut user := app.get_user_by_username(username) or { return false, User{} }
+
+	return user.is_registered, user
+}
+
+pub fn (mut app App) auth_user(user User, ip string) {
+	token := app.add_token(user.id, ip)
+
+	app.update_user_login_attempts(user.id, 0)
+
+	expire_date := time.now().add_days(200)
+
+	app.set_cookie(name: 'token', value: token, expires: expire_date)
+}
+
+pub fn (mut app App) is_logged_in() bool {
+	token_cookie := app.get_cookie('token') or { return false }
+
+	token := app.get_token(token_cookie) or { return false }
+
+	is_user_blocked := app.check_user_blocked(token.user_id)
+
+	if is_user_blocked {
+		app.handle_logout()
+
+		return false
+	}
+
+	return true
+}
+
+pub fn (mut app App) get_user_from_cookies() ?User {
+	token_cookie := app.get_cookie('token') or { return none }
+
+	token := app.get_token(token_cookie) or { return none }
+
+	mut user := app.get_user_by_id(token.user_id) or { return none }
+
+	return user
+}

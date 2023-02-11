@@ -14,4 +14,20 @@ pub fn (mut app App) running_since() string {
 	minutes := int(math.floor(duration / 60)) % 60
 	seconds := duration % 60
 
-	return '${days} days ${hours} hours ${minutes} minutes and ${seconds} seconds
+	return '${days} days ${hours} hours ${minutes} minutes and ${seconds} seconds'
+}
+
+pub fn (mut app App) make_path(branch_name string, i int) string {
+	if i == 0 {
+		return app.path_split[..i + 1].join('/')
+	}
+
+	mut s := app.path_split[0]
+
+	s += '/tree/${branch_name}/'
+	s += app.path_split[1..i + 1].join('/')
+
+	return s
+}
+
+fn create_directory_if_not_exi

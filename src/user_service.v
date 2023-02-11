@@ -100,3 +100,238 @@ fn (mut app App) create_user_dir(username string) {
 }
 
 pub fn (mut app App) update_user_avatar(user_id int, filename_or_url string) {
+	sql app.db {
+		update User set avatar = filename_or_url where id == user_id
+	}
+}
+
+pub fn (mut app App) add_user(user User) {
+	sql app.db {
+		insert user into User
+	}
+}
+
+pub fn (mut app App) add_email(user_id int, email string) {
+	user_email := Email{
+		user_id: user_id
+		email: email
+	}
+
+	sql app.db {
+		insert user_email into Email
+	}
+}
+
+pub fn (mut app App) add_contributor(user_id int, repo_id int) {
+	if !app.contains_contributor(user_id, repo_id) {
+		contributor := Contributor{
+			user_id: user_id
+			repo_id: repo_id
+		}
+
+		sql app.db {
+			insert contributor into Contributor
+		}
+	}
+}
+
+pub fn (app App) get_username_by_id(id int) ?string {
+	user := sql app.db {
+		select from User where id == id limit 1
+	}
+
+	if user.id == 0 {
+		return none
+	}
+
+	return user.username
+}
+
+pub fn (app App) get_user_by_username(value string) ?User {
+	mut user := sql app.db {
+		select from User where username == value limit 1
+	}
+
+	if user.id == 0 {
+		return none
+	}
+
+	emails := app.find_user_emails(user.id)
+	user.emails = emails
+
+	return user
+}
+
+pub fn (app App) get_user_by_id(id int) ?User {
+	mut user := sql app.db {
+		select from User where id == id
+	}
+
+	if user.id == 0 {
+		return none
+	}
+
+	emails := app.find_user_emails(user.id)
+	user.emails = emails
+
+	return user
+}
+
+pub fn (mut app App) get_user_by_github_username(name string) ?User {
+	mut user := sql app.db {
+		select from User where github_username == name limit 1
+	}
+
+	if user.id == 0 {
+		return none
+	}
+
+	emails := app.find_user_emails(user.id)
+	user.emails = emails
+
+	return user
+}
+
+pub fn (mut app App) get_user_by_email(value string) ?User {
+	emails := sql app.db {
+		select from Email where email == value
+	}
+
+	if emails.len != 1 {
+		return none
+	}
+
+	return app.get_user_by_id(emails[0].user_id)
+}
+
+pub fn (app App) find_user_emails(user_id int) []Email {
+	emails := sql app.db {
+		select from Email where user_id == user_id
+	}
+
+	return emails
+}
+
+pub fn (mut app App) find_repo_registered_contributor(id int) []User {
+	contributors := sql app.db {
+		select from Contributor where repo_id == id
+	}
+
+	mut users := []User{cap: contributors.len}
+
+	for contributor in contributors {
+		user := app.get_user_by_id(contributor.user_id) or { continue }
+
+		users << user
+	}
+
+	return users
+}
+
+pub fn (mut app App) get_all_registered_users_as_page(offset int) []User {
+	// FIXME: 30 -> admin_users_per_page
+	mut users := sql app.db {
+		select from User where is_registered == true limit 30 offset offset
+	}
+
+	for i, user in users {
+		users[i].emails = app.find_user_emails(user.id)
+	}
+
+	return users
+}
+
+pub fn (mut app App) get_all_registered_user_count() int {
+	return sql app.db {
+		select count from User where is_registered == true
+	}
+}
+
+fn (app App) search_users(query string) []User {
+	repo_rows, _ := app.db.exec('select id, full_name, username, avatar from `User` where is_blocked is false and (username like "%${query}%" or full_name like "%${query}%")')
+
+	mut users := []User{}
+
+	for row in repo_rows {
+		users << User{
+			id: row.vals[0].int()
+			full_name: row.vals[1]
+			username: row.vals[2]
+			avatar: row.vals[3]
+		}
+	}
+
+	return users
+}
+
+pub fn (mut app App) get_users_count() int {
+	return sql app.db {
+		select count from User
+	}
+}
+
+pub fn (mut app App) get_count_repo_contributors(id int) int {
+	return sql app.db {
+		select count from Contributor where repo_id == id
+	}
+}
+
+pub fn (mut app App) contains_contributor(user_id int, repo_id int) bool {
+	contributors := sql app.db {
+		select from Contributor where repo_id == repo_id && user_id == user_id
+	}
+
+	return contributors.len > 0
+}
+
+pub fn (mut app App) increment_user_post(mut user User) {
+	user.posts_count++
+
+	u := *user
+	id := u.id
+	now := int(time.now().unix)
+	lastplus := int(time.unix(u.last_post_time).add_days(1).unix)
+
+	if now >= lastplus {
+		user.last_post_time = now
+		sql app.db {
+			update User set posts_count = 0, last_post_time = now where id == id
+		}
+	}
+
+	sql app.db {
+		update User set posts_count = posts_count + 1 where id == id
+	}
+}
+
+pub fn (mut app App) increment_user_login_attempts(user_id int) {
+	sql app.db {
+		update User set login_attempts = login_attempts + 1 where id == user_id
+	}
+}
+
+pub fn (mut app App) update_user_login_attempts(user_id int, attempts int) {
+	sql app.db {
+		update User set login_attempts = attempts where id == user_id
+	}
+}
+
+pub fn (mut app App) check_user_blocked(user_id int) bool {
+	user := app.get_user_by_id(user_id) or { return false }
+
+	return user.is_blocked
+}
+
+fn (mut app App) change_username(user_id int, username string) {
+	sql app.db {
+		update User set username = username where id == user_id
+	}
+
+	sql app.db {
+		update Repo set user_name = username where user_id == user_id
+	}
+}
+
+fn (mut app App) change_full_name(user_id int, full_name string) {
+	sql app.db {
+		update User set full_name = full_name where id == user_id

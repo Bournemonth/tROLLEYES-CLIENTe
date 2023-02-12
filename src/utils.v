@@ -56,4 +56,5 @@ fn check_first_page(page int) bool {
 }
 
 fn check_last_page(total int, offset int, per_page int) bool {
-	return (total 
+	return (total - offset) < per_page
+}

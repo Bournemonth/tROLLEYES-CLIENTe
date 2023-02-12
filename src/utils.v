@@ -30,4 +30,18 @@ pub fn (mut app App) make_path(branch_name string, i int) string {
 	return s
 }
 
-fn create_directory_if_not_exi
+fn create_directory_if_not_exists(path string) {
+	if !os.exists(path) {
+		os.mkdir(path) or { panic('cannot create ${path} directory') }
+	}
+}
+
+fn calculate_pages(count int, per_page int) int {
+	if count == 0 {
+		return 0
+	}
+
+	return int(math.ceil(f32(count) / f32(per_page))) - 1
+}
+
+fn genera

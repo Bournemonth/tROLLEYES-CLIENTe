@@ -18,4 +18,14 @@ fn (mut app App) get_count_repo_watchers(repo_id int) int {
 }
 
 fn (mut app App) find_watching_repo_ids(user_id int) []int {
-	watch_list :=
+	watch_list := sql app.db {
+		select from Watch where user_id == user_id
+	}
+
+	return watch_list.map(it.repo_id)
+}
+
+fn (mut app App) toggle_repo_watcher_status(repo_id int, user_id int) {
+	is_watching := app.check_repo_watcher_status(repo_id, user_id)
+
+	if is_watching 

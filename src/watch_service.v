@@ -28,4 +28,16 @@ fn (mut app App) find_watching_repo_ids(user_id int) []int {
 fn (mut app App) toggle_repo_watcher_status(repo_id int, user_id int) {
 	is_watching := app.check_repo_watcher_status(repo_id, user_id)
 
-	if is_watching 
+	if is_watching {
+		app.unwatch_repo(repo_id, user_id)
+	} else {
+		app.watch_repo(repo_id, user_id)
+	}
+}
+
+fn (mut app App) check_repo_watcher_status(repo_id int, user_id int) bool {
+	watch := sql app.db {
+		select from Watch where repo_id == repo_id && user_id == user_id limit 1
+	}
+
+	retur

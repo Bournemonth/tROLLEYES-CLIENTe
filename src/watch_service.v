@@ -40,4 +40,11 @@ fn (mut app App) check_repo_watcher_status(repo_id int, user_id int) bool {
 		select from Watch where repo_id == repo_id && user_id == user_id limit 1
 	}
 
-	retur
+	return watch.id != 0
+}
+
+fn (mut app App) unwatch_repo(repo_id int, user_id int) {
+	sql app.db {
+		delete from Watch where repo_id == repo_id && user_id == user_id
+	}
+}

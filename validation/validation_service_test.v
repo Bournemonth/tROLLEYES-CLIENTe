@@ -20,4 +20,10 @@ fn test_is_username_valid() {
 
 fn test_is_repository_name_valid() {
 	assert is_repository_name_valid('gitly')
-	assert is_repositor
+	assert is_repository_name_valid('Gitly')
+	assert is_repository_name_valid('gitly1')
+	assert is_repository_name_valid('git.ly')
+	assert is_repository_name_valid('git3.ly')
+	assert is_repository_name_valid('git3-ly')
+	assert is_repository_name_valid('git3ly_')
+	assert is_repository_name_

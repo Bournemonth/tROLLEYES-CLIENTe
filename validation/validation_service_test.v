@@ -12,4 +12,12 @@ fn test_is_username_valid() {
 	assert is_username_valid('git-ly') == false
 	assert is_username_valid('1gitly') == false
 	assert is_username_valid('') == false
-	as
+	assert is_username_valid(' ') == false
+	assert is_username_valid(' 33') == false
+	assert is_username_valid(' gitly') == false
+	assert is_username_valid('#gitly') == false
+}
+
+fn test_is_repository_name_valid() {
+	assert is_repository_name_valid('gitly')
+	assert is_repositor

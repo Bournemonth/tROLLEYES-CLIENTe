@@ -32,4 +32,17 @@ fn test_is_repository_name_valid() {
 	assert is_repository_name_valid('1gitly') == false
 	assert is_repository_name_valid('') == false
 	assert is_repository_name_valid(' ') == false
-	assert is_repository_name_valid(' 33') ==
+	assert is_repository_name_valid(' 33') == false
+	assert is_repository_name_valid(' gitly') == false
+	assert is_repository_name_valid('#gitly') == false
+}
+
+fn test_is_string_empty() {
+	assert is_string_empty('')
+
+	assert is_string_empty(' ')
+
+	assert is_string_empty('g') == false
+
+	assert is_string_empty(' g') == false
+}

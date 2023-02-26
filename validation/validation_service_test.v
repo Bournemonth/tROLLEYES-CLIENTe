@@ -26,4 +26,10 @@ fn test_is_repository_name_valid() {
 	assert is_repository_name_valid('git3.ly')
 	assert is_repository_name_valid('git3-ly')
 	assert is_repository_name_valid('git3ly_')
-	assert is_repository_name_
+	assert is_repository_name_valid('git-ly')
+
+	assert is_repository_name_valid('_gitly') == false
+	assert is_repository_name_valid('1gitly') == false
+	assert is_repository_name_valid('') == false
+	assert is_repository_name_valid(' ') == false
+	assert is_repository_name_valid(' 33') ==
